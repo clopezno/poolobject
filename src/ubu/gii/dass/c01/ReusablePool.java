@@ -1,4 +1,4 @@
-package ubu.ii.dmsii.actividad01;
+package ubu.gii.dass.c01;
 
 
 import java.util.*;
