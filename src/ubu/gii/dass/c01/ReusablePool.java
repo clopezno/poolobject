@@ -4,7 +4,7 @@ package ubu.gii.dass.c01;
 import java.util.*;
 
 
-public class ReusablePool{
+public final class ReusablePool{
 
 	private Vector<Reusable> reusables;
 	private static ReusablePool instance;

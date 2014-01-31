@@ -1,5 +1,7 @@
 package ubu.gii.dass.c01;
 
+import java.util.logging.Logger;
+
 
 public class Client{
 	
@@ -7,20 +9,25 @@ public class Client{
 	public static void main(String arg[]) throws NotFreeInstanceException{
 	  ReusablePool pool;
 	  Reusable r1,r2,r3;
+	  Logger logger = Logger.getLogger("c01");
+	 
 	  
 	  pool = ReusablePool.getInstance();
 	  r1 = pool.acquireReusable();
 	  r2 = pool.acquireReusable();
+	  
+	 
+	  logger.info(r1.util());
+	  logger.info(r2.util());
 	   
-	  System.out.println(r1.util());
-	  System.out.println(r2.util());
-	  
-	  
+	
+	  	  
 	  pool.releaseReusable(r2);
 	  r3= pool.acquireReusable();
 	  
-	  System.out.println(r3.util());
-	  System.out.println(r1.util());
+	  logger.info(r3.util());
+	  
+	  logger.info(r1.util());
 	
 	}
 
