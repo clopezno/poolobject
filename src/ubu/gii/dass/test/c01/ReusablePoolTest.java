@@ -58,9 +58,11 @@ public class ReusablePoolTest {
 	@Test
 	public void testAcquireReusable() {	
 			try {				
+				//acquirir correctamente
 				pool.releaseReusable(reusable2);				
 				Reusable reusable3=pool.acquireReusable();
 				
+				//acquirir sin posibilidad de hacerlo, NotFreeInstance
 				Reusable reusable4=pool.acquireReusable();
 				
 			} catch (NotFreeInstanceException e) {
