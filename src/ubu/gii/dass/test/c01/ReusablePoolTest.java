@@ -82,12 +82,15 @@ public class ReusablePoolTest {
 	@Test
 	public void testReleaseReusable() throws NotFreeInstanceException {
 				try{
+					//se añade al pool un objeto reusable, correcto
 					pool.releaseReusable(reusable1);
+					//se intenta añadir el mismo objeto reusable, DuplicatedInstanceException
 					pool.releaseReusable(reusable1);
 				}catch (DuplicatedInstanceException e){
 					assertEquals("Ya existe esa instancia en el pool.",e.getMessage());
 					}
 				
+				// se saca el objeto reusable para dejar el pool vacio (estado inicial)
 				reusable1=pool.acquireReusable();
 	}
 
