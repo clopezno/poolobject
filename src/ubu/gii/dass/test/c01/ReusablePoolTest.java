@@ -56,8 +56,19 @@ public class ReusablePoolTest {
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 */
 	@Test
-	public void testAcquireReusable() {
-		fail("Not yet implemented");
+	public void testAcquireReusable() {	
+			try {				
+				pool.releaseReusable(reusable2);				
+				Reusable reusable3=pool.acquireReusable();
+				
+				Reusable reusable4=pool.acquireReusable();
+				
+			} catch (NotFreeInstanceException e) {
+				assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde",e.getMessage());
+			} catch (DuplicatedInstanceException e) {
+				assertEquals("Ya existe esa instancia en el pool.",e.getMessage());
+			}
+	
 	}
 
 	/**
