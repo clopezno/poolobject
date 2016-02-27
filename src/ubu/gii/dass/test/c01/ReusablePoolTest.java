@@ -49,7 +49,17 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		// Adquiere instancia de ReusablePool.
+		ReusablePool poolTest = ReusablePool.getInstance();
+		
+		// Comprueba que pool y poolTest son instancia de ReusablePool.
+		assertTrue(pool instanceof ReusablePool);
+		assertTrue(poolTest instanceof ReusablePool);
+		
+		// Compara los dos objetos son de la misma instancia.
+		// Debido a que el metodo 'equals' no es sobreescrito, 'equals' y '==' darán el mismo resultado.
+		assertTrue(pool == poolTest);
+		assertTrue(pool.equals(poolTest));
 	}
 
 	/**
