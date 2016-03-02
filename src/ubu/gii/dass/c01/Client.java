@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 public class Client{
 	
 	
-	public static void main(String arg[]) throws NotFreeInstanceException, DuplicatedInstanceException{
+	public static void main(String arg[]) throws NotFreeInstanceException, DuplicatedInstanceException, FullPoolException{
 	  ReusablePool pool;
 	  Reusable r1,r2,r3;
 	  Logger logger = Logger.getLogger("c01");

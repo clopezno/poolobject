@@ -13,9 +13,9 @@ import org.junit.Test;
 /**
  * Clase Test que prueba la clase ReusablePool con 100% de cobertura.
  * 
- * @author CUEVAS DÍEZ JOSÉ RAMÓN
- * @author LÓPEZ MARÍN LAURA
- * @author CUADRADO GARCÍA IRENE
+ * @author CUEVAS Dï¿½EZ JOSï¿½ RAMï¿½N
+ * @author Lï¿½PEZ MARï¿½N LAURA
+ * @author CUADRADO GARCï¿½A IRENE
  * @author EPIKHIN ANTON
  */
 public class ReusablePoolTest {
@@ -62,7 +62,7 @@ public class ReusablePoolTest {
 
 		// Compara los dos objetos son de la misma instancia.
 		// Debido a que el metodo 'equals' no es sobreescrito, 'equals' y '=='
-		// darán el mismo resultado.
+		// darï¿½n el mismo resultado.
 		assertTrue(pool == poolTest);
 		assertTrue(pool.equals(poolTest));
 	}
@@ -77,13 +77,13 @@ public class ReusablePoolTest {
 			pool.releaseReusable(reusable2);
 			Reusable reusable3 = pool.acquireReusable();
 		} catch (Exception e) {			
-			fail("No se esperaba ninguna excepción ");
+			fail("No se esperaba ninguna excepciï¿½n ");
 		}
 		try {
 			// acquirir sin posibilidad de hacerlo, NotFreeInstance
 			Reusable reusable4 = pool.acquireReusable();
 		} catch (NotFreeInstanceException e) {
-			assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde", e.getMessage());
+			assertEquals("No hay mï¿½s instancias reutilizables disponibles. Reintentalo mï¿½s tarde", e.getMessage());
 		}
 
 	}
@@ -99,40 +99,44 @@ public class ReusablePoolTest {
 	public void testReleaseReusable() throws NotFreeInstanceException {
 		
 		try {
+			//se intenta liberar un objeto nulo, Excepcion 
+			pool.releaseReusable(null);	
+			fail("Se esperaba excepciï¿½n de tipo Exception que controle la liberaciï¿½n de nulos");
+		}catch (Exception e){
+			assertEquals("No se puede liberar un objeto nulo", e.getMessage());
+		}
+		
+		try {
 			// se libera del pool un objeto reusable, correcto
 			pool.releaseReusable(reusable1);
 			//se libera del pool un objeto reusable, correcto
 			pool.releaseReusable(reusable2);
 			// se intenta liberar el mismo objeto reusable,
-			// DuplicatedInstanceException
-			pool.releaseReusable(reusable1);
-			fail("Se esperaba excepción de tipo DuplicatedInstanceException");
-				
-		} catch (DuplicatedInstanceException e) {
-			assertEquals("Ya existe esa instancia en el pool.", e.getMessage());
 		} catch (Exception e) {
 			fail("No se espera ninguna excepcion");
 		}
-		
-		try {
-			//se intenta liberar un objeto nulo, Excepcion 
-			pool.releaseReusable(null);	
-			fail("Se esperaba excepción de tipo Exception que controle la liberación de nulos");
-		}catch (Exception e){
-			assertEquals("No se puede liberar un objeto nulo", e.getMessage());
+		try{
+			// DuplicatedInstanceException
+			reusable2 = pool.acquireReusable();
+			pool.releaseReusable(reusable1);
+			fail("Se esperaba excepciï¿½n de tipo DuplicatedInstanceException");
+				
+		} catch (DuplicatedInstanceException | FullPoolException e) {
+			assertEquals("Ya existe esa instancia en el pool.", e.getMessage());
 		}
 		
 		try{
 			//se intenta liberar un objeto reusable, cuando ya esta completo el pool
+			pool.releaseReusable(reusable2);
 			Reusable reusable3=new Reusable();	
 			pool.releaseReusable(reusable3);
-			fail("Se esperaba excepción de tipo Exception que controle la dimensión máxima del pool");
+			fail("Se esperaba excepciï¿½n de tipo Exception que controle la dimensiï¿½n mï¿½xima del pool");
 		}catch(Exception e){
 			assertEquals("No se puede liberar mas objetos que la dimension del pool", e.getMessage());
 			
 		}
 		
-		// se añade los objetos reusables para dejar el pool vacio (estado inicial)
+		// se aï¿½ade los objetos reusables para dejar el pool vacio (estado inicial)
 		reusable1 = pool.acquireReusable();
 		reusable2 = pool.acquireReusable();
 		
