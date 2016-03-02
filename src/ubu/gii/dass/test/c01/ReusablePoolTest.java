@@ -9,17 +9,30 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.ReusablePool;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import ubu.gii.dass.c01.Reusable;
+
 /**
- * @author alumno
+ * @author Plamen Petyov Petkov, ...
  *
  */
 public class ReusablePoolTest {
 
+	private ReusablePool pool;
+	private List<Reusable> reusables;
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		
+		pool = ReusablePool.getInstance();
+		reusables = new ArrayList<Reusable>(2);
 	}
 
 	/**
@@ -27,6 +40,10 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		
+		for(Reusable r : reusables)
+			pool.releaseReusable(r);
+		pool = null;
 	}
 
 	/**
@@ -34,6 +51,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
@@ -42,6 +60,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
@@ -50,6 +69,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
+		//TODO
 		fail("Not yet implemented");
 	}
 
