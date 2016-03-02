@@ -72,18 +72,18 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
+		// acquirir correctamente
 		try {
-			// acquirir correctamente
 			pool.releaseReusable(reusable2);
 			Reusable reusable3 = pool.acquireReusable();
-
+		} catch (Exception e) {			
+			fail("No se esperaba ninguna excepción ");
+		}
+		try {
 			// acquirir sin posibilidad de hacerlo, NotFreeInstance
 			Reusable reusable4 = pool.acquireReusable();
-
 		} catch (NotFreeInstanceException e) {
 			assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde", e.getMessage());
-		} catch (DuplicatedInstanceException e) {
-			assertEquals("Ya existe esa instancia en el pool.", e.getMessage());
 		}
 
 	}
