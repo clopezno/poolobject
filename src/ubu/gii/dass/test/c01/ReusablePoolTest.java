@@ -35,6 +35,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
+		//PRUEBA JOSE
 		fail("Not yet implemented");
 	}
 
