@@ -13,9 +13,9 @@ import org.junit.Test;
 /**
  * Clase Test que prueba la clase ReusablePool con 100% de cobertura.
  * 
- * @author CUEVAS D�EZ JOS� RAM�N
- * @author L�PEZ MAR�N LAURA
- * @author CUADRADO GARC�A IRENE
+ * @author CUEVAS DÍEZ JOSÉ RAMÓN
+ * @author LÓPEZ MARÍN LAURA
+ * @author CUADRADO GARCÍA IRENE
  * @author EPIKHIN ANTON
  */
 public class ReusablePoolTest {
@@ -62,7 +62,7 @@ public class ReusablePoolTest {
 
 		// Compara los dos objetos son de la misma instancia.
 		// Debido a que el metodo 'equals' no es sobreescrito, 'equals' y '=='
-		// dar�n el mismo resultado.
+		// darán el mismo resultado.
 		assertTrue(pool == poolTest);
 		assertTrue(pool.equals(poolTest));
 	}
@@ -77,13 +77,13 @@ public class ReusablePoolTest {
 			pool.releaseReusable(reusable2);
 			Reusable reusable3 = pool.acquireReusable();
 		} catch (Exception e) {			
-			fail("No se esperaba ninguna excepci�n ");
+			fail("No se esperaba ninguna excepción ");
 		}
 		try {
 			// acquirir sin posibilidad de hacerlo, NotFreeInstance
 			Reusable reusable4 = pool.acquireReusable();
 		} catch (NotFreeInstanceException e) {
-			assertEquals("No hay m�s instancias reutilizables disponibles. Reintentalo m�s tarde", e.getMessage());
+			assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde", e.getMessage());
 		}
 
 	}
@@ -101,7 +101,7 @@ public class ReusablePoolTest {
 		try {
 			//se intenta liberar un objeto nulo, Excepcion 
 			pool.releaseReusable(null);	
-			fail("Se esperaba excepci�n de tipo Exception que controle la liberaci�n de nulos");
+			fail("Se esperaba excepción de tipo Exception que controle la liberación de nulos");
 		}catch (Exception e){
 			assertEquals("No se puede liberar un objeto nulo", e.getMessage());
 		}
@@ -119,7 +119,7 @@ public class ReusablePoolTest {
 			// DuplicatedInstanceException
 			reusable2 = pool.acquireReusable();
 			pool.releaseReusable(reusable1);
-			fail("Se esperaba excepci�n de tipo DuplicatedInstanceException");
+			fail("Se esperaba excepción de tipo DuplicatedInstanceException");
 				
 		} catch (DuplicatedInstanceException | FullPoolException e) {
 			assertEquals("Ya existe esa instancia en el pool.", e.getMessage());
@@ -130,13 +130,13 @@ public class ReusablePoolTest {
 			pool.releaseReusable(reusable2);
 			Reusable reusable3=new Reusable();	
 			pool.releaseReusable(reusable3);
-			fail("Se esperaba excepci�n de tipo Exception que controle la dimensi�n m�xima del pool");
+			fail("Se esperaba excepción de tipo Exception que controle la dimensión máxima del pool");
 		}catch(Exception e){
-			assertEquals("No se puede liberar mas objetos que la dimension del pool", e.getMessage());
+			assertEquals("No se puede liberar más objetos que la dimensión del pool", e.getMessage());
 			
 		}
 		
-		// se a�ade los objetos reusables para dejar el pool vacio (estado inicial)
+		// se añade los objetos reusables para dejar el pool vacio (estado inicial)
 		reusable1 = pool.acquireReusable();
 		reusable2 = pool.acquireReusable();
 		
