@@ -16,6 +16,7 @@ import ubu.gii.dass.c01.ReusablePool;
 
 /**
  * @author alumno
+ * fdafa
  */
 public class ReusablePoolTest {
 
