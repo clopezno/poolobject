@@ -19,18 +19,16 @@ import ubu.gii.dass.c01.ReusablePool;
  */
 public class ReusablePoolTest {
 
-	ReusablePool pool = null;
+	ReusablePool pool1;
 	ReusablePool pool2;
-	ReusablePool pool3;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		pool = ReusablePool.getInstance();
+		pool1 = null;
 		pool2 = null;
-		pool3 = null;
 	}
 
 	/**
@@ -45,12 +43,12 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
+		assert pool1 == null;
 		assert pool2 == null;
-		assert pool3 == null;
+		pool1 = ReusablePool.getInstance();
+		assert pool1 != null;
 		pool2 = ReusablePool.getInstance();
-		assert pool2 != null;
-		pool3 = ReusablePool.getInstance();
-		assert pool2.equals(pool2);
+		assert pool1.equals(pool1);
 	}
 
 	/**
@@ -59,15 +57,14 @@ public class ReusablePoolTest {
 	 */
 	@Test(expected=NotFreeInstanceException.class)
 	public void testAcquireReusable() throws NotFreeInstanceException {
-		//boolean SaltaException =false;
 		
-			Reusable r1 = pool.acquireReusable();
-			Reusable r2 = pool.acquireReusable();
+		pool1 = ReusablePool.getInstance();
+		Reusable r1 = pool1.acquireReusable();
+		Reusable r2 = pool1.acquireReusable();
+		assertNotEquals(r1, null);	
+		assertNotEquals(r2, null);	
 			
-			assertNotEquals(r1, null);	
-			assertNotEquals(r2, null);	
-			
-			 pool.acquireReusable();
+		pool1.acquireReusable();
 			
 	}
 
