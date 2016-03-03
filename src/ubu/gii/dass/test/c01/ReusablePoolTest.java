@@ -51,9 +51,13 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		//TODO
-		fail("Not yet implemented");
-	}
+		//Comprobamos que tanto el contenido como la instancia no sea null
+		  assertNotNull(pool);
+		  //Comprobamos si creando otro objeto tienen el mismo contenido
+		  ReusablePool prueba2= ReusablePool.getInstance();
+		  assertTrue(pool==prueba2);
+		  assertTrue(pool.equals(prueba2));
+		  }
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
