@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -21,6 +22,8 @@ public class ReusablePoolTest {
 
 	ReusablePool pool1;
 	ReusablePool pool2;
+	Reusable r1;
+	Reusable r2;
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,6 +39,12 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		if(r1 != null && r2 != null){
+			pool1.releaseReusable(r1);
+			pool1.releaseReusable(r2);
+		}
+		pool1=null;
+		pool2=null;
 	}
 
 	/**
@@ -59,8 +68,8 @@ public class ReusablePoolTest {
 	public void testAcquireReusable() throws NotFreeInstanceException {
 		
 		pool1 = ReusablePool.getInstance();
-		Reusable r1 = pool1.acquireReusable();
-		Reusable r2 = pool1.acquireReusable();
+		r1 = pool1.acquireReusable();
+		r2 = pool1.acquireReusable();
 		assertNotEquals(r1, null);	
 		assertNotEquals(r2, null);	
 			
@@ -70,10 +79,26 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	* @throws NotFreeInstanceException 
+	 * @throws DuplicatedInstanceException 
 	 */
-	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
+	@Test(expected=NotFreeInstanceException.class)
+	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException  {
+		pool1 = ReusablePool.getInstance();
+		r1 = pool1.acquireReusable();
+		r2 = pool1.acquireReusable();
+		assertNotEquals(r1, null);	
+		assertNotEquals(r2, null);	
+			
+		pool1.acquireReusable();
+		//existen dos instancias de reusable y las liberamos una
+		pool1.releaseReusable(r1);
+		Reusable instanciaNueva = pool1.acquireReusable();
+		//ahora si puedo obtener un Reusable ya que he liberado
+		assertNotEquals(instanciaNueva, null);
+		
+		//ahora compruebo que salta exception si intento liberar uno que ya existe
+		pool1.releaseReusable(instanciaNueva);
 	}
 
 }
