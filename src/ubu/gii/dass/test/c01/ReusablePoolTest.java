@@ -14,6 +14,7 @@ import ubu.gii.dass.c01.ReusablePool;
 import java.util.List;
 import java.util.ArrayList;
 
+import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 
 /**
@@ -61,11 +62,19 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * @throws NotFreeInstanceException 
 	 */
-	@Test
-	public void testAcquireReusable() {
+	@Test(expected= NotFreeInstanceException.class)
+	public void testAcquireReusable() throws NotFreeInstanceException {
 		//TODO
-		fail("Not yet implemented");
+		reusables.add(pool.acquireReusable());
+		//Me tiene que devolver un valor nulo
+		assertNotNull("El objeto es null", reusables.get(0));
+		//El reusable es del tipo Reusable
+		assertTrue("No es del tipo reusable.", reusables.get(0) instanceof Reusable);
+		//Hago dos llamadas mas para comprobar que salta la excepcion
+		reusables.add(pool.acquireReusable());
+		reusables.add(pool.acquireReusable());
 	}
 
 	/**
