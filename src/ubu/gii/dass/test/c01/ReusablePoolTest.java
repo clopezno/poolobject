@@ -20,12 +20,17 @@ import ubu.gii.dass.c01.ReusablePool;
 public class ReusablePoolTest {
 
 	ReusablePool pool = null;
+	ReusablePool pool2;
+	ReusablePool pool3;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		pool = ReusablePool.getInstance();
+		pool2 = null;
+		pool3 = null;
 	}
 
 	/**
@@ -40,8 +45,12 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		//PRUEBA JOSE
-		fail("Not yet implemented");
+		assert pool2 == null;
+		assert pool3 == null;
+		pool2 = ReusablePool.getInstance();
+		assert pool2 != null;
+		pool3 = ReusablePool.getInstance();
+		assert pool2.equals(pool2);
 	}
 
 	/**
