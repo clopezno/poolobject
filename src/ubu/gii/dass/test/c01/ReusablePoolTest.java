@@ -14,6 +14,7 @@ import ubu.gii.dass.c01.ReusablePool;
 import java.util.List;
 import java.util.ArrayList;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 
@@ -79,11 +80,14 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws DuplicatedInstanceException 
 	 */
-	@Test
-	public void testReleaseReusable() {
-		//TODO
-		fail("Not yet implemented");
+	@Test(expected= DuplicatedInstanceException.class)
+	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
+		pool.releaseReusable(reusables.get(1));
+		assertEquals("texto", pool.acquireReusable(),reusables.get(1));
+		pool.releaseReusable(reusables.get(0));
+		pool.releaseReusable(reusables.get(0));		
 	}
 
 }
