@@ -26,15 +26,14 @@ public class ReusablePoolTest {
 
 	private ReusablePool pool;
 	private List<Reusable> reusables;
-	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		
+
 		pool = ReusablePool.getInstance();
-		reusables = new ArrayList<Reusable>(2);
 	}
 
 	/**
@@ -42,52 +41,89 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
-		
-		for(Reusable r : reusables)
-			pool.releaseReusable(r);
+
 		pool = null;
 	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
+	 * 
+	 * Tests the following conditions:
+	 * - if {@link ubu.gii.dass.c01.ReusablePool#getInstance()} returns not null
+	 * - if two invocations of {@link ubu.gii.dass.c01.ReusablePool#getInstance()}
+	 * 
 	 */
 	@Test
 	public void testGetInstance() {
-		//Comprobamos que tanto el contenido como la instancia no sea null
-		  assertNotNull(pool);
-		  //Comprobamos si creando otro objeto tienen el mismo contenido
-		  ReusablePool prueba2= ReusablePool.getInstance();
-		  assertTrue(pool==prueba2);
-		  assertTrue(pool.equals(prueba2));
-		  }
 
-	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
-	 * @throws NotFreeInstanceException 
-	 */
-	@Test(expected= NotFreeInstanceException.class)
-	public void testAcquireReusable() throws NotFreeInstanceException {
-		//TODO
-		reusables.add(pool.acquireReusable());
-		//Me tiene que devolver un valor nulo
-		assertNotNull("El objeto es null", reusables.get(0));
-		//El reusable es del tipo Reusable
-		assertTrue("No es del tipo reusable.", reusables.get(0) instanceof Reusable);
-		//Hago dos llamadas mas para comprobar que salta la excepcion
-		reusables.add(pool.acquireReusable());
-		reusables.add(pool.acquireReusable());
+		ReusablePool localPool = ReusablePool.getInstance();
+
+		assertNotNull(pool); // assert pool not null
+		assertNotNull(localPool); // assert localPool not null
+		assertEquals(pool, localPool); // assert getInstance returns the same
+										// ReusablePool instance
 	}
 
 	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
-	 * @throws DuplicatedInstanceException 
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * 
+	 * @throws NotFreeInstanceException
 	 */
-	@Test(expected= DuplicatedInstanceException.class)
-	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
-		pool.releaseReusable(reusables.get(1));
-		assertEquals("texto", pool.acquireReusable(),reusables.get(1));
-		pool.releaseReusable(reusables.get(0));
-		pool.releaseReusable(reusables.get(0));		
+	@Test(expected = NotFreeInstanceException.class)
+	public void testAcquireReusable() throws NotFreeInstanceException {
+		
+		Reusable r1 = pool.acquireReusable();	// acquire a Reusable instance
+		assertNotNull(r1);	// assert first reusable not null
+		assertTrue(r1 instanceof Reusable); // asserts first reusable is instance of Reusable
+
+		Reusable r2 = pool.acquireReusable();	// acquire a Reusable instance
+		assertNotNull(r2);	// assert second reusable not null
+		assertTrue(r2 instanceof Reusable); // asserts second reusable is instance of Reusable
+		
+		assertNotEquals(r1, r2);	// assert r1 and r2 hold different instances of Reusable
+		
+		pool.acquireReusable();	// NotFreeInstanceException intentionally thrown
+	}
+
+	/**
+	 * Test method for
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}
+	 * .
+	 * 
+	 * @throws DuplicatedInstanceException
+	 */
+	@Test(expected = DuplicatedInstanceException.class)
+	public void testReleaseReusable() throws DuplicatedInstanceException,
+			NotFreeInstanceException {
+		
+		Reusable r1 = pool.acquireReusable();
+		Reusable r2 = pool.acquireReusable();
+			
+		pool.releaseReusable(r1);	// release first Reusable instance
+		pool.releaseReusable(r2);	// release second Reusable instance
+		
+		// ReusablePool behaves as a stack of Reusable instances
+		// The last released Reusable instance is the first to be acquired 
+		assertEquals(r2, pool.acquireReusable());	// assert acquired r2
+		
+		assertNotEquals(r1, r2);
+				
+		pool.releaseReusable(r1); // DuplicatedInstanceException intentionally thrown
+	}
+	
+	@Test
+	public void testReleaseNewReusable() throws NotFreeInstanceException,
+		DuplicatedInstanceException {
+		
+		Reusable r1 = pool.acquireReusable();
+		Reusable r2 = pool.acquireReusable();
+		Reusable newReusable = new Reusable();
+		
+		pool.releaseReusable(r1);
+		pool.releaseReusable(r2);
+		pool.releaseReusable(newReusable);	// This is illegal and should not happen !!!
+		
+		fail("You should not be able to release external Reusable instances to the pool !!!");
 	}
 
 }
