@@ -19,7 +19,7 @@ import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 
 /**
- * @author Plamen Petyov Petkov, ...
+ * @author Plamen Petyov Petkov, Rodrigo Martinez Bravo, Napoleón Cortés Mata, Maria Viyuela Fernandez
  *
  */
 public class ReusablePoolTest {
