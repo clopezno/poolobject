@@ -15,7 +15,12 @@ import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
- * @author alumno
+ * Test que prueba los distintos métodos de la clase ReusablePool
+ * 
+ * @author Óscar Eduardo Aguado Díaz
+ * @author José Antonio Barbero Aparicio
+ * @author Miguel Rodríguez Rico
+ * @author Adrián Santamaría Leal
  *
  */
 public class ReusablePoolTest {
@@ -26,6 +31,8 @@ public class ReusablePoolTest {
 	Reusable r2;
 
 	/**
+	 * Método que incializa las variables usadas
+	 * 
 	 * @throws java.lang.Exception
 	 */
 	@Before
@@ -35,16 +42,18 @@ public class ReusablePoolTest {
 	}
 
 	/**
+	 * Método que se encarga de liberar los distintos pool
+	 * 
 	 * @throws java.lang.Exception
 	 */
 	@After
 	public void tearDown() throws Exception {
-		if(r1 != null && r2 != null){
+		if (r1 != null && r2 != null) {
 			pool1.releaseReusable(r1);
 			pool1.releaseReusable(r2);
 		}
-		pool1=null;
-		pool2=null;
+		pool1 = null;
+		pool2 = null;
 	}
 
 	/**
@@ -62,42 +71,47 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
-	 * @throws NotFreeInstanceException 
+	 * 
+	 * @throws NotFreeInstanceException
 	 */
-	@Test(expected=NotFreeInstanceException.class)
+	@Test(expected = NotFreeInstanceException.class)
 	public void testAcquireReusable() throws NotFreeInstanceException {
-		
+
 		pool1 = ReusablePool.getInstance();
 		r1 = pool1.acquireReusable();
 		r2 = pool1.acquireReusable();
-		assertNotEquals(r1, null);	
-		assertNotEquals(r2, null);	
-			
+		assertNotEquals(r1, null);
+		assertNotEquals(r2, null);
+
 		pool1.acquireReusable();
-			
+
 	}
 
 	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
-	* @throws NotFreeInstanceException 
-	 * @throws DuplicatedInstanceException 
+	 * Test method for
+	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}
+	 * .
+	 * 
+	 * @throws NotFreeInstanceException
+	 * @throws DuplicatedInstanceException
 	 */
-	@Test(expected=NotFreeInstanceException.class)
-	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException  {
+	@Test(expected = NotFreeInstanceException.class)
+	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
 		pool1 = ReusablePool.getInstance();
 		r1 = pool1.acquireReusable();
 		r2 = pool1.acquireReusable();
-		assertNotEquals(r1, null);	
-		assertNotEquals(r2, null);	
-			
+		assertNotEquals(r1, null);
+		assertNotEquals(r2, null);
+
 		pool1.acquireReusable();
-		//existen dos instancias de reusable y las liberamos una
+		// existen dos instancias de reusable y las liberamos una
 		pool1.releaseReusable(r1);
 		Reusable instanciaNueva = pool1.acquireReusable();
-		//ahora si puedo obtener un Reusable ya que he liberado
+		// ahora si puedo obtener un Reusable ya que he liberado
 		assertNotEquals(instanciaNueva, null);
-		
-		//ahora compruebo que salta exception si intento liberar uno que ya existe
+
+		// ahora compruebo que salta exception si intento liberar uno que ya
+		// existe
 		pool1.releaseReusable(instanciaNueva);
 	}
 
