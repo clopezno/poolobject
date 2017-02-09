@@ -4,23 +4,25 @@ package ubu.gii.dass.c01;
 import java.util.*;
 /**
  * Pool que gestiona dos objetos de tipo Reusables para poder ser compartidos.
- * @author Carlos LÛpez clopezno@ubu.es
+ * @author Carlos L√≥pez clopezno@ubu.es
  */
 
 public final class ReusablePool{
 
 	private Vector<Reusable> reusables;
 	private static ReusablePool instance;
+	private int size;
 
 	private ReusablePool(int size){
+		this.size = size;
 		reusables = new Vector<Reusable>(size);
 		for(int i=0;i<size;i++)
 			reusables.add(new Reusable());
 	}
 
 	/**
-	 * MÈtodo singleton que crea u obtiene la ˙nica instancia del Pool que gestiona dos objetos Reusables
-	 * @return la instancia ˙nica del Pool 
+	 * M√©todo singleton que crea u obtiene la √∫nica instancia del Pool que gestiona dos objetos Reusables
+	 * @return la instancia √∫nica del Pool 
 	 * 
 	 */
 	public static ReusablePool getInstance(){
@@ -49,11 +51,18 @@ public final class ReusablePool{
 	 * El cliente libera una instancia del objeto Reusable y se guarda en el Pool para poder ser utilizada por otro cliente.
 	 * @param r una instancia objeto reusable
 	 * @exception DuplicatedInstanceException si el objeto reusable ya existe en el pool
+	 * @throws FullPoolException 
 	 * 
 	 */
 
-	public void releaseReusable(Reusable r) throws DuplicatedInstanceException {
-		if (reusables.contains(r)==false){
+	public void releaseReusable(Reusable r) throws DuplicatedInstanceException, FullPoolException {
+		if (r == null){
+			throw new FullPoolException("No se puede liberar un objeto nulo");
+		}
+		else if (reusables.size() >= this.size){
+			throw new FullPoolException("No se puede liberar m√°s objetos que la dimensi√≥n del pool");
+		}
+		else if (reusables.contains(r)==false){
 			reusables.add(r);
 		}
 		else{
