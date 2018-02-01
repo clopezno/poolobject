@@ -1,10 +1,10 @@
-package ubu.gii.dass.c01;
+ï»¿package ubu.gii.dass.c01;
 
 
 import java.util.*;
 /**
  * Pool que gestiona dos objetos de tipo Reusables para poder ser compartidos.
- * @author Carlos López clopezno@ubu.es
+ * @author Carlos LÃ³pez clopezno@ubu.es
  */
 
 public final class ReusablePool{
@@ -19,8 +19,8 @@ public final class ReusablePool{
 	}
 
 	/**
-	 * Método singleton que crea u obtiene la única instancia del Pool que gestiona dos objetos Reusables
-	 * @return la instancia única del Pool 
+	 * MÃ©todo singleton que crea u obtiene la Ãºnica instancia del Pool que gestiona dos objetos Reusables
+	 * @return la instancia Ãºnica del Pool 
 	 * 
 	 */
 	public static ReusablePool getInstance(){
