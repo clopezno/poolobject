@@ -65,6 +65,7 @@
         </sourcefiles>
       </structure>
       <html destdir="report"/>
+      <xml destfile="report.xml"/>
     </jacoco:report>
   </target>
   <target name="dist" depends="compile" description="generate the distribution">
