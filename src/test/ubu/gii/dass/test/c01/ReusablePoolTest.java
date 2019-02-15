@@ -14,7 +14,7 @@ import org.junit.Test;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
- * @author Roberto Luquero Peñacoba
+ * @author Roberto Luquero
  *
  */
 public class ReusablePoolTest {
