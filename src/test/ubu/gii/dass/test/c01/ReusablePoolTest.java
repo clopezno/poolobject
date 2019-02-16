@@ -6,12 +6,12 @@ package ubu.gii.dass.test.c01;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -39,6 +39,9 @@ public class ReusablePoolTest {
 	@After
 	public void tearDown() throws Exception {
 		pool = null;
+		r1 = null;
+		r2 = null;
+		r3 = null;
 	}
 
 	/**
@@ -90,10 +93,33 @@ public class ReusablePoolTest {
 	/**
 	 * Test method for
 	 * {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * 
+	 * @throws NotFreeInstanceException
+	 * @throws DuplicatedInstanceException
 	 */
 	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
-	}
+	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
+		// Los 2 Reusables no son nulos en un principio
+		assertNull(r1);
+		assertNull(r2);
 
+		// Obtengo los 2 Reusables
+		r1 = pool.acquireReusable();
+		r2 = pool.acquireReusable();
+
+		// Los 2 Reusables no son nulos
+		assertNotNull(r1);
+		assertNotNull(r2);
+
+		// Libero los reusables
+		pool.releaseReusable(r1);
+		pool.releaseReusable(r2);
+
+		// Intentar liberar un reusable libre lanza excepcion.
+		try {
+			pool.releaseReusable(r1);
+		} catch (DuplicatedInstanceException e) {
+			assertTrue(e.getMessage().contentEquals("Ya existe esa instancia en el pool."));
+		}
+	}
 }
