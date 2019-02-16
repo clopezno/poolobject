@@ -4,6 +4,7 @@
 package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -11,6 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
 
 /**
@@ -20,6 +23,7 @@ import ubu.gii.dass.c01.ReusablePool;
 public class ReusablePoolTest {
 
 	private ReusablePool pool;
+	private Reusable r1, r2, r3;
 
 	/**
 	 * @throws java.lang.Exception
@@ -53,8 +57,34 @@ public class ReusablePoolTest {
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 */
 	@Test
-	public void testAcquireReusable() {
-		fail("Not yet implemented");
+	public void testAcquireReusable() throws NotFreeInstanceException {
+		// No es nulo el pool
+		assertNotNull(pool);
+
+		// Son nulos los Reusables en un inicio
+		assertNull(r1);
+		assertNull(r2);
+		assertNull(r3);
+
+		// Obtengo los 2 primeros Reusables
+		r1 = pool.acquireReusable();
+		r2 = pool.acquireReusable();
+
+		// Los 2 Reusables no son nulos
+		assertNotNull(r1);
+		assertNotNull(r2);
+
+		// Los 2 Reusables son instancia de Reusable
+		assertTrue(r1 instanceof Reusable);
+		assertTrue(r2 instanceof Reusable);
+
+		// El tercero lanza excepcion
+		try {
+			r3 = pool.acquireReusable();
+		} catch (NotFreeInstanceException e) {
+			assertTrue(e.getMessage()
+					.contentEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde"));
+		}
 	}
 
 	/**
