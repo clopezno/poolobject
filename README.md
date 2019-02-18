@@ -41,3 +41,8 @@ Alrededor de unas 2 horas divididas en dos días, como se puede comprobar: https
 
 En eclipse únicamente se muestra un warning (debido a la falta de serialVersion en la excepción DuplicatedInstanceException) y ningún error. Las funciones de init, todos los compile y la ejecución de los test desde Ant se ejecutan correctamente y no presentan errores.
 El único error que he detectado (al poner mi segundo apellido en @author "Peñacoba"), lo he resuelto con un commit extra.
+
+Repositorio
+===========
+
+https://github.com/rlp0019/poolobject
