@@ -59,7 +59,7 @@ public class ReusablePoolTest {
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
 	 */
-	@Test
+	@Test(expected = NotFreeInstanceException.class)
 	public void testAcquireReusable() throws NotFreeInstanceException {
 		// No es nulo el pool
 		assertNotNull(pool);
@@ -82,12 +82,7 @@ public class ReusablePoolTest {
 		assertTrue(r2 instanceof Reusable);
 
 		// El tercero lanza excepcion
-		try {
-			r3 = pool.acquireReusable();
-		} catch (NotFreeInstanceException e) {
-			assertTrue(e.getMessage()
-					.contentEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde"));
-		}
+		r3 = pool.acquireReusable();
 	}
 
 	/**
@@ -97,7 +92,7 @@ public class ReusablePoolTest {
 	 * @throws NotFreeInstanceException
 	 * @throws DuplicatedInstanceException
 	 */
-	@Test
+	@Test(expected = DuplicatedInstanceException.class)
 	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
 		// Los 2 Reusables no son nulos en un principio
 		assertNull(r1);
@@ -116,10 +111,6 @@ public class ReusablePoolTest {
 		pool.releaseReusable(r2);
 
 		// Intentar liberar un reusable libre lanza excepcion.
-		try {
-			pool.releaseReusable(r1);
-		} catch (DuplicatedInstanceException e) {
-			assertTrue(e.getMessage().contentEquals("Ya existe esa instancia en el pool."));
-		}
+		pool.releaseReusable(r1);
 	}
 }
