@@ -22,6 +22,8 @@ public class ReusablePoolTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		ReusablePool RPool=ReusablePool.getInstance();
+		
 		
 	}
 
@@ -37,7 +39,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		ReusablePool reus=ReusablePool.getInstance();
+		ReusablePool reus = ReusablePool.getInstance();
 		assert(reus==ReusablePool.getInstance());
 		
 	}
