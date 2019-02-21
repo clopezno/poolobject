@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -54,25 +55,16 @@ public class ReusablePoolTest {
 	@Test
 	public void testAcquireReusable() {
 		ReusablePool RPool=ReusablePool.getInstance();
-		try {
-			Reusable r = RPool.acquireReusable();
-			//assert(true);
-		} catch (NotFreeInstanceException e1) {
-			
-		}
-		try {
-			Reusable a= RPool.acquireReusable();
-			//assert(true);
-		} catch (NotFreeInstanceException e) {
-			
-		}
+		int cont=2;
+		while(cont>0) {
 		try{
 			RPool.acquireReusable();
-			fail();
-		}catch(NotFreeInstanceException ex){
 			
+		}catch(NotFreeInstanceException ex){
+			assert(true);
 		}
-		
+		cont--;
+		}
 	}
 
 	/**
@@ -80,7 +72,20 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		fail("Not yet implemented");
+		ReusablePool RPool=ReusablePool.getInstance();
+		Reusable r = new Reusable();
+		Reusable a = new Reusable();
+		int cont=3;
+		while(cont>0) {
+			try {
+				RPool.releaseReusable(r);
+				RPool.releaseReusable(a);
+			} catch (DuplicatedInstanceException e) {
+				// TODO Auto-generated catch block
+				assert(true);
+			}
+		cont--;
+		}
 	}
 
 }
