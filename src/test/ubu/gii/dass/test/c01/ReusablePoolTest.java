@@ -5,10 +5,13 @@ package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.Client;
 import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
@@ -30,6 +33,8 @@ public class ReusablePoolTest {
 		
 		
 		
+		
+		
 	}
 
 	/**
@@ -44,8 +49,8 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		ReusablePool reus = ReusablePool.getInstance();
-		assert(reus==ReusablePool.getInstance());
+		ReusablePool pool = ReusablePool.getInstance();
+		assert(pool==ReusablePool.getInstance());
 		
 	}
 
@@ -55,7 +60,7 @@ public class ReusablePoolTest {
 	@Test
 	public void testAcquireReusable() {
 		ReusablePool RPool=ReusablePool.getInstance();
-		int cont=2;
+		int cont=10;
 		while(cont>0) {
 		try{
 			RPool.acquireReusable();
