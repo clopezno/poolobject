@@ -27,7 +27,7 @@ Preguntas
 
 - ¿Se ha realizado trabajo en equipo?
 
-No, he realizado el trabajo de forma individual, como se puede ver en GitHub: https://github.com/rlp0019/poolobject
+No, he realizado el trabajo de forma individual, como se puede ver en GitHub: https://github.com/rlp0019/poolobject/graphs/contributors
 
 - ¿Tiene calidad el conjunto de pruebas disponibles?
 
