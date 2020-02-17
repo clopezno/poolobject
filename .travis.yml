@@ -1,4 +1,4 @@
 language: java
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-script: ant test -lib ./lib/ant-junit.jar
+script: ant test -lib ./lib/ant-junit4.jar
