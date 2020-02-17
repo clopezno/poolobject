@@ -1,4 +1,5 @@
 language: java
+before_script:
+   - sudo apt-get install ant-optional
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-script: ant test -lib ./lib/ant-junit4.jar
