@@ -31,9 +31,9 @@ public class ReusablePoolTest {
 		// con una "nueva" instancia de Singleton en cada Test.
 		// Esta solución no me gusta demasiado, pero no veo cómo
 		// pueden hacerse las pruebas realmente independientes si no es así.
-		Field instance = ReusablePool.class.getDeclaredField("instance");
-		instance.setAccessible(true);
-		instance.set(null, null);
+		// Field instance = ReusablePool.class.getDeclaredField("instance");
+		// instance.setAccessible(true);
+		// instance.set(null, null);
 	}
 
 	/**
