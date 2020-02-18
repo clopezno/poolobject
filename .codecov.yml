@@ -2,4 +2,6 @@ coverage:
   round: up
   range: 0..100
   precision: 3
-  
+
+  ignore:
+    - "src/test/**/*" # Ignora los test para el cubrimiento
