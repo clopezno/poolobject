@@ -12,6 +12,8 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 
 import ubu.gii.dass.c01.ReusablePool;
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
 
 /**
  * @author alumno
@@ -61,10 +63,23 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * Test de adquisición de dos objetos reusables diferentes
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testAcquireReusable() {
-		fail("Not yet implemented");
+	public void testAcquireReusable01() throws NotFreeInstanceException {		
+		ReusablePool pool = ReusablePool.getInstance();
+		
+		Reusable r1 = pool.acquireReusable();
+		assertNotNull(r1);
+		assertTrue(r1 instanceof Reusable);
+		
+		Reusable r2 = pool.acquireReusable();
+		assertNotNull(r2);
+		assertTrue(r2 instanceof Reusable);
+		
+		assertFalse("Se esperaban instancias diferentes de Reusable", r1.util().equals(r2.util()));
+		
 	}
 
 	/**
