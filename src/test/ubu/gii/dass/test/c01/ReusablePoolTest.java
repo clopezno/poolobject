@@ -120,4 +120,21 @@ public class ReusablePoolTest {
 		assertSame("No se recupera el objeto liberado",r1,r1b);
 		assertSame("No se recupera el objeto liberado",r2,r2b);
 	}
+	
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * Comprueba que no se permite liberar un objeto ya liberado.
+	 * @throws NotFreeInstanceException 
+	 * @throws DuplicatedInstanceException 
+	 */
+	@Test(expected = DuplicatedInstanceException.class)
+	public void testReleaseReusable02() throws NotFreeInstanceException, DuplicatedInstanceException {
+		ReusablePool pool = ReusablePool.getInstance();
+		
+		Reusable r1 = pool.acquireReusable();
+		
+		pool.releaseReusable(r1);
+		pool.releaseReusable(r1);
+		
+	}
 }
