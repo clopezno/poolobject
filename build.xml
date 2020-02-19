@@ -39,7 +39,7 @@
 
   <target name="test" depends="test-compile">
     <jacoco:coverage>
-      <junit printsummary="on" haltonfailure="no" fork="true">
+      <junit printsummary="on" haltonfailure="yes" fork="true">
         <classpath>
           <path refid="classpath.test"/>
           <pathelement location="${test.build.dir}"/>
