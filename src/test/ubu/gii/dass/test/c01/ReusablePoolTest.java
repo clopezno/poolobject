@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.lang.reflect.Field;
 
 import ubu.gii.dass.c01.ReusablePool;
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 
@@ -100,10 +101,23 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * Comprueba que se liberan correctamente los objetos del pool y quedan a disposición de los clientes.
+	 * @throws NotFreeInstanceException 
+	 * @throws DuplicatedInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() {
-		fail("Not yet implemented");
+	public void testReleaseReusable01() throws NotFreeInstanceException, DuplicatedInstanceException {
+		ReusablePool pool = ReusablePool.getInstance();
+		Reusable r1 = pool.acquireReusable();
+		Reusable r2 = pool.acquireReusable();
+		
+		pool.releaseReusable(r1);
+		pool.releaseReusable(r2);
+		
+		Reusable r2b = pool.acquireReusable();
+		Reusable r1b = pool.acquireReusable();
+		
+		assertSame("No se recupera el objeto liberado",r1,r1b);
+		assertSame("No se recupera el objeto liberado",r2,r2b);
 	}
-
 }
