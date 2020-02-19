@@ -81,6 +81,22 @@ public class ReusablePoolTest {
 		assertFalse("Se esperaban instancias diferentes de Reusable", r1.util().equals(r2.util()));
 		
 	}
+	
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * Comprueba la excepción NotFreeInstanceException si se solicitan más de dos objetos reusable
+	 * @throws NotFreeInstanceException 
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = NotFreeInstanceException.class)
+	public void testAcquireReusable02() throws NotFreeInstanceException {	
+		ReusablePool pool = ReusablePool.getInstance();	
+		
+		Reusable r1 = pool.acquireReusable();	
+		Reusable r2 = pool.acquireReusable();
+		Reusable r3 = pool.acquireReusable();
+			
+	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
