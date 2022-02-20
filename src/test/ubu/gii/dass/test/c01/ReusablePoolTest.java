@@ -5,9 +5,17 @@ package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import ubu.gii.dass.c01.Client;
+import ubu.gii.dass.c01.DuplicatedInstanceException;
+import ubu.gii.dass.c01.NotFreeInstanceException;
+import ubu.gii.dass.c01.Reusable;
+import ubu.gii.dass.c01.ReusablePool;
 
 /**
  * @author alumno
@@ -15,11 +23,18 @@ import org.junit.Test;
  */
 public class ReusablePoolTest {
 
+	
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		
+		
+		
+		
+		
 	}
 
 	/**
@@ -34,7 +49,9 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		ReusablePool pool = ReusablePool.getInstance();
+		assert(pool==ReusablePool.getInstance());
+		
 	}
 
 	/**
@@ -42,7 +59,17 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		fail("Not yet implemented");
+		ReusablePool RPool=ReusablePool.getInstance();
+		int cont=10;
+		while(cont>0) {
+		try{
+			RPool.acquireReusable();
+			
+		}catch(NotFreeInstanceException ex){
+			assert(true);
+		}
+		cont--;
+		}
 	}
 
 	/**
@@ -50,7 +77,20 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		fail("Not yet implemented");
+		ReusablePool RPool=ReusablePool.getInstance();
+		Reusable r = new Reusable();
+		Reusable a = new Reusable();
+		int cont=3;
+		while(cont>0) {
+			try {
+				RPool.releaseReusable(r);
+				RPool.releaseReusable(a);
+			} catch (DuplicatedInstanceException e) {
+				// TODO Auto-generated catch block
+				assert(true);
+			}
+		cont--;
+		}
 	}
 
 }
