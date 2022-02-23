@@ -5,8 +5,6 @@ package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Field;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +13,7 @@ import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
+import ubu.gii.dass.c01.Client;
 
 /**
  * @author Andoni Vianez Ulloa
@@ -56,6 +55,7 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
 	public void testAcquireReusable() {
@@ -76,23 +76,36 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws NotFreeInstanceException 
+	 * @throws DuplicatedInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() {
-		Reusable r1, r2 = null;
+	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
+		Reusable r1 = null;
+		
+		r1 = pool.acquireReusable();
+		pool.releaseReusable(r1); 
+
 		try {
-			r1 = pool.acquireReusable();
-			String hash1 = r1.util();
 			pool.releaseReusable(r1); 
-			r2 = pool.acquireReusable(); 
-			assertTrue(hash1.equals(r2.util())); 
-			pool.releaseReusable(r2); 
-			pool.releaseReusable(r2);
-		} catch (NotFreeInstanceException e) { 
-			e.printStackTrace();
 		} catch (DuplicatedInstanceException e) { 
-			assertTrue(true);
+			assertTrue(e instanceof DuplicatedInstanceException);
 		}
+	}
+	
+	/**
+	 * Test method for  {@link ubu.gii.dass.c01.Client#main(ubu.gii.dass.c01.Client)}.
+	 * @throws DuplicatedInstanceException 
+	 * @throws NotFreeInstanceException 
+	 */
+	@SuppressWarnings("static-access")
+	@Test
+	public void testClient() throws NotFreeInstanceException, DuplicatedInstanceException {
+		Client client = new Client();
+		assertNotNull(client);
+		assertTrue(client instanceof Client);
+		
+		client.main(null);
 	}
 
 }
