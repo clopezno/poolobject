@@ -59,7 +59,19 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		fail("Not yet implemented");
+		Reusable r1, r2, r3 = null;
+		try {
+			r1 = pool.acquireReusable();
+			assertNotNull(r1);
+			assertTrue(r1 instanceof Reusable);
+			r2 = pool.acquireReusable();
+			assertNotNull(r2);
+			assertTrue(r2 instanceof Reusable);
+			assertFalse(r1.util().equals(r2.util()));
+			r3 = pool.acquireReusable();
+		} catch (NotFreeInstanceException e) {
+			assertNull(r3);
+		}
 	}
 
 	/**
@@ -67,7 +79,20 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		fail("Not yet implemented");
+		Reusable r1, r2 = null;
+		try {
+			r1 = pool.acquireReusable();
+			String hash1 = r1.util();
+			pool.releaseReusable(r1); 
+			r2 = pool.acquireReusable(); 
+			assertTrue(hash1.equals(r2.util())); 
+			pool.releaseReusable(r2); 
+			pool.releaseReusable(r2);
+		} catch (NotFreeInstanceException e) { 
+			e.printStackTrace();
+		} catch (DuplicatedInstanceException e) { 
+			assertTrue(true);
+		}
 	}
 
 }
