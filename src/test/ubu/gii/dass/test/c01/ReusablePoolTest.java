@@ -81,15 +81,19 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
-		Reusable r1 = null;
-		
-		r1 = pool.acquireReusable();
-		pool.releaseReusable(r1); 
-
+		Reusable r1, r2 = null;
 		try {
+			r1 = pool.acquireReusable();
+			String hash1 = r1.util();
 			pool.releaseReusable(r1); 
+			r2 = pool.acquireReusable(); 
+			assertTrue(hash1.equals(r2.util()));
+			pool.releaseReusable(r2); 
+			pool.releaseReusable(r2); 
+		} catch (NotFreeInstanceException e) { 
+			e.printStackTrace();
 		} catch (DuplicatedInstanceException e) { 
-			assertTrue(e instanceof DuplicatedInstanceException);
+			assertTrue(true);
 		}
 	}
 	
