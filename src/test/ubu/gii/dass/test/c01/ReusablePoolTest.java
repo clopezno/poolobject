@@ -45,13 +45,16 @@ public class ReusablePoolTest {
 	@Test
 	public void testGetInstance() {
 		ReusablePool pool = ReusablePool.getInstance();
+		// Comprobamos que no es null
 		assertNotNull("Devuelve un objeto nulo", pool);
+		// Comprobamos que el objeto devuelto es una instancia
 		assertTrue(pool instanceof ReusablePool);
 		
 		ReusablePool pool2 = ReusablePool.getInstance();
+		// Comprobamos que no es null
 		assertNotNull("Devuelve un objeto nulo", pool2);
+		// Comprobamos que el objeto devuelto es una instancia
 		assertTrue(pool2 instanceof ReusablePool);
-		
 		assertSame("Misma instancia que el Singleton", pool, pool2);
 	}
 
@@ -60,7 +63,7 @@ public class ReusablePoolTest {
 	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testAcquireReusable() {
+	public void testAcquireReusable() throws NotFreeInstanceException {
 		Reusable r1, r2, r3 = null;
 		try {
 			r1 = pool.acquireReusable();
@@ -69,6 +72,7 @@ public class ReusablePoolTest {
 			r2 = pool.acquireReusable();
 			assertNotNull(r2);
 			assertTrue(r2 instanceof Reusable);
+			// Se comprueba que no son el mismo objeto
 			assertFalse(r1.util().equals(r2.util()));
 			r3 = pool.acquireReusable();
 		} catch (NotFreeInstanceException e) {
@@ -86,12 +90,12 @@ public class ReusablePoolTest {
 		Reusable r1, r2 = null;
 		try {
 			r1 = pool.acquireReusable();
-			String hash1 = r1.util();
-			pool.releaseReusable(r1); 
-			r2 = pool.acquireReusable(); 
+			String hash1 = r1.util(); // Guardamos
+			pool.releaseReusable(r1); // Liberamos
+			r2 = pool.acquireReusable(); // Cogemos un nuevo reusable
 			assertTrue(hash1.equals(r2.util()));
-			pool.releaseReusable(r2); 
-			pool.releaseReusable(r2); 
+			pool.releaseReusable(r2); // Liberamos
+			pool.releaseReusable(r2); // Liberamos y salta la excepción 
 		} catch (NotFreeInstanceException e) { 
 			e.printStackTrace();
 		} catch (DuplicatedInstanceException e) { 
