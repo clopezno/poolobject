@@ -17,7 +17,7 @@ import ubu.gii.dass.c01.Client;
 
 /**
  * @author Andoni Vianez Ulloa
- * @author Yobana Nido Álvarez
+ * @author Yobana Nido Alvarez
  *
  */
 public class ReusablePoolTest {
