@@ -1,9 +1,5 @@
 *.class
-/report
-report.xml
-jacoco.exec
-.project
-.classpath
+
 # Package Files #
 *.jar
 *.war
