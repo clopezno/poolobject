@@ -46,9 +46,11 @@ public class ReusablePoolTest {
 	public void testGetInstance() {
 		ReusablePool pool = ReusablePool.getInstance();
 		assertNotNull("Devuelve un objeto nulo", pool);
+		assertTrue(pool instanceof ReusablePool);
 		
 		ReusablePool pool2 = ReusablePool.getInstance();
 		assertNotNull("Devuelve un objeto nulo", pool2);
+		assertTrue(pool2 instanceof ReusablePool);
 		
 		assertSame("Misma instancia que el Singleton", pool, pool2);
 	}
