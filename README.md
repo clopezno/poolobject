@@ -1,5 +1,6 @@
 [![codecov](https://codecov.io/gh/andonivianez/poolobject/branch/master/graph/badge.svg?token=ODPDXDS1B2)](https://codecov.io/gh/andonivianez/poolobject) <br />
 ![workflow](https://github.com/andonivianez/poolobject/actions/workflows/ant.yml/badge.svg) <br />
+[![Codacy Badge](https://app.codacy.com/gh/Yobana/poolobject/dashboard?branch=master)
 poolobject
 ==========
 
