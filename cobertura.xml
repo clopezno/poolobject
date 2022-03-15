@@ -1,0 +1,37 @@
+<? versión xml = " 1.0 " ?>
+<! SISTEMA DE COBERTURA DOCTYPE  "http://cobertura.sourceforge.net/xml/coverage-04.dtd">
+< cobertura  líneas-válidas = " 8 "  líneas-cubiertas = " 8 "  línea-tarifa = " 1 "  ramas-válidas = " 4 "  ramas-cubiertas = " 4 "  rama-tasa = " 1 "  timestamp = " 1394890504210 "  complejidad = " 0 "  versión = " 0.1 " >
+    < fuentes >
+        < fuente >fuentes</ fuente >
+    </ fuentes >
+    < paquetes >
+        < nombre del paquete  = " 3 " line-rate = " 1 " branch-rate = " 1 " >  
+            < clases >
+                < nombre de clase  = " cc.js " nombre de archivo = " cc.js " line-rate = " 1 " branch-rate = " 1 " >   
+                    < métodos >
+                        < nombre del método  = " normalizar " aciertos = " 11 " firma = " ()V " >  
+                            < líneas >
+                                < número de línea  = " 1 " hits = " 11 " /> 
+                            </ lineas >
+                        </ método >
+                        < nombre del método  = " getBrand " visitas = " 7 " firma = " ()V " >  
+                            < líneas >
+                                < número de línea  = " 5 " hits = " 7 " /> 
+                            </ lineas >
+                        </ método >
+                    </ métodos >
+                    < líneas >
+                        < número de línea  = " 1 " hits = " 1 " branch = " false " />  
+                        < número de línea  = " 2 " hits = " 11 " branch = " false " />  
+                        < número de línea  = " 5 " hits = " 1 " branch = " false " />  
+                        < número de línea  = " 6 " hits = " 7 " branch = " false " />  
+                        < número de línea  = " 15 " hits = " 7 " branch = " false " />  
+                        < número de línea  = " 17 " hits = " 7 " branch = " false " />  
+                        < número de línea  = " 18 " hits = " 25 " branch = " true " condition-coverage = " 100% (4/4) " />   
+                        < número de línea  = " 20 " hits = " 6 " branch = " false " />  
+                    </ lineas >
+                </ clase >
+            </ clases >
+        </ paquete >
+    </ paquetes >
+</ cobertura >
