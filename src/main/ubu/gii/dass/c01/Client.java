@@ -8,7 +8,9 @@ public class Client{
 	
 	public static void main(String arg[]) throws NotFreeInstanceException, DuplicatedInstanceException{
 	  ReusablePool pool;
-	  Reusable r1,r2,r3;
+	  Reusable r1;
+	  Reusable r2;
+	  Reusable r3;
 	  Logger logger = Logger.getLogger("c01");
 	 
 	  
