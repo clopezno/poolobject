@@ -40,6 +40,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
+		//Prueba travis
 		ReusablePool pool = ReusablePool.getInstance();
 
 		assertNotNull(pool);
