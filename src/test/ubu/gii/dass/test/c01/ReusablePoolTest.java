@@ -12,7 +12,7 @@ import org.junit.Test;
 import ubu.gii.dass.c01.*;
 
 /**
- * @author alumno
+ * @author Montoya Ramírez José Jesús
  *
  */
 public class ReusablePoolTest {
@@ -40,7 +40,6 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		//Prueba travis
 		ReusablePool pool = ReusablePool.getInstance();
 
 		assertNotNull(pool);
@@ -53,8 +52,21 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		//fail("Not yet implemented");
-		assertTrue(true);
+		try {
+			Reusable reu1 = pool.acquireReusable();
+			Reusable reu2 = pool.acquireReusable();
+			assertNotNull(reu1);
+			assertNotNull(reu2);
+			assertSame(reu1, reu2);
+			assertTrue(reu1 instanceof Reusable);
+			assertTrue(reu2 instanceof Reusable);
+
+			Reusable reu3 = pool.acquireReusable();
+			assertNotNull(reu3);
+
+		} catch (Exception e) {
+
+		}
 	}
 
 	/**
@@ -62,9 +74,22 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
+		try {
+			Reusable reu1 = pool.acquireReusable();
+			Reusable reu2 = pool.acquireReusable();
+			assertNotNull(reu1);
+			assertNotNull(reu2);
+			pool.releaseReusable(reu2);
+			try {
+				pool.releaseReusable(reu2);
 
-		//fail("Not yet implemented");
-		assertTrue(true);
+			} catch (DuplicatedInstanceException e) {
+				// al ejecutarse otra vez el pool.releaseReusable(reu2)
+				assertTrue(true);
+			}
+
+		} catch (Exception e) {
+			fail("Unexpected exception: " + e.getClass().getSimpleName());
+		}
 	}
-
 }
