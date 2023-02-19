@@ -5,6 +5,8 @@ package ubu.gii.dass.test.c01;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,8 @@ public class ReusablePoolTest {
 		assertNotNull(pool);
 
 		assertTrue(pool instanceof ReusablePool);
+
+
 	}
 
 	/**
@@ -61,8 +65,12 @@ public class ReusablePoolTest {
 			assertTrue(reu1 instanceof Reusable);
 			assertTrue(reu2 instanceof Reusable);
 
+			assertTrue(reu1.util().contains("Uso del objeto Reutilizable"));
+
+
 			Reusable reu3 = pool.acquireReusable();
 			assertNotNull(reu3);
+
 
 		} catch (Exception e) {
 
@@ -92,4 +100,13 @@ public class ReusablePoolTest {
 			fail("Unexpected exception: " + e.getClass().getSimpleName());
 		}
 	}
+
+	@Test
+	public void testClient() {
+		Client cliente = new Client();
+
+		assertNotNull(cliente);
+	}
+
+
 }
