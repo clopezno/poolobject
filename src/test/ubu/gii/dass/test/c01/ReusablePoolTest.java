@@ -53,28 +53,30 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * @throws NotFreeInstanceException
 	 */
 	@Test
-	public void testAcquireReusable() {
+	public void testAcquireReusable() throws NotFreeInstanceException {
+
+		Reusable reu1 = pool.acquireReusable();
+		Reusable reu2 = pool.acquireReusable();
+		assertNotNull(reu1);
+		assertNotNull(reu2);
+
+		assertTrue(reu1 instanceof Reusable);
+		assertTrue(reu2 instanceof Reusable);
+
+		assertTrue(reu1.util().contains("Uso del objeto Reutilizable"));
+
+
+		// Si no queda espacio libre el ReusablePool devuelve una excepcion
 		try {
-			Reusable reu1 = pool.acquireReusable();
-			Reusable reu2 = pool.acquireReusable();
-			assertNotNull(reu1);
-			assertNotNull(reu2);
-			assertSame(reu1, reu2);
-			assertTrue(reu1 instanceof Reusable);
-			assertTrue(reu2 instanceof Reusable);
-
-			assertTrue(reu1.util().contains("Uso del objeto Reutilizable"));
-
-
 			Reusable reu3 = pool.acquireReusable();
-			assertNotNull(reu3);
-
-
 		} catch (Exception e) {
 
+			assertTrue(e instanceof NotFreeInstanceException);
 		}
+
 	}
 
 	/**
@@ -82,14 +84,15 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
+		ReusablePool pool = ReusablePool.getInstance();
 		try {
 			Reusable reu1 = pool.acquireReusable();
-			Reusable reu2 = pool.acquireReusable();
+
 			assertNotNull(reu1);
-			assertNotNull(reu2);
-			pool.releaseReusable(reu2);
+
+			pool.releaseReusable(reu1);
 			try {
-				pool.releaseReusable(reu2);
+				pool.releaseReusable(reu1);
 
 			} catch (DuplicatedInstanceException e) {
 				// al ejecutarse otra vez el pool.releaseReusable(reu2)
@@ -101,12 +104,18 @@ public class ReusablePoolTest {
 		}
 	}
 
+
 	@Test
 	public void testClient() {
-		Client cliente = new Client();
 
-		assertNotNull(cliente);
+		// Redirect standard output to capture logging messages
+		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+
+		try {
+			Client.main(new String[]{});
+		} catch (Exception e) {
+			fail("Client threw an unexpected exception.");
+		}
 	}
-
 
 }
