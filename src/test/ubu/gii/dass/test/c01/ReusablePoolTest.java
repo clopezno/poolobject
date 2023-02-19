@@ -107,6 +107,8 @@ public class ReusablePoolTest {
 
 	@Test
 	public void testClient() {
+		Client cliente = new Client();
+		assertNotNull(cliente);
 
 		// Redirect standard output to capture logging messages
 		ByteArrayOutputStream outContent = new ByteArrayOutputStream();
