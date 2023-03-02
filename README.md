@@ -4,7 +4,7 @@ poolobject
 [![Java CI](https://github.com/Kencho/poolobject/actions/workflows/ci.yml/badge.svg)](https://github.com/Kencho/poolobject/actions/workflows/ci.yml) [![Build Status](https://app.travis-ci.com/Kencho/poolobject.svg?branch=master)](https://app.travis-ci.com/Kencho/poolobject) [![codecov](https://codecov.io/gh/Kencho/poolobject/branch/master/graph/badge.svg)](https://codecov.io/gh/Kencho/poolobject)
 ¿Se ha realizado trabajo en equipo?  
 
-No, por motivos de tiempo no he podido coordinarme con ningún compañero, el trabajo ha sido realizado de forma individual, aunque teniendo en cuenta los preceptos de trabajo en equipo. 
+Por motivos de enterarnos a última hora de los equipos en las prácticas el compañero José Jesús se encargo de casi todo el trabajo ya que lo tenía prácticamente terminado cuando se comento lo de los grupos y el compañero Alberto únicamente ha depurado un poco el código para buscar el 100% de la cobertura.
 
  
 
