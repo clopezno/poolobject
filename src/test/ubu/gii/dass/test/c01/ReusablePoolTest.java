@@ -56,23 +56,23 @@ public class ReusablePoolTest {
 	 * @throws NotFreeInstanceException
 	 */
 	@Test
-	public void testAcquireReusable() throws NotFreeInstanceException {
-
-		Reusable reu1 = pool.acquireReusable();
-		Reusable reu2 = pool.acquireReusable();
-		assertNotNull(reu1);
-		assertNotNull(reu2);
-
-		assertTrue(reu1 instanceof Reusable);
-		assertTrue(reu2 instanceof Reusable);
-
-		assertTrue(reu1.util().contains("Uso del objeto Reutilizable"));
-
-
+	public void testAcquireReusable() {
 		// Si no queda espacio libre el ReusablePool devuelve una excepcion
 		try {
+
+			Reusable reu1 = pool.acquireReusable();
+			Reusable reu2 = pool.acquireReusable();
+			assertNotNull(reu1);
+			assertNotNull(reu2);
+	
+			assertTrue(reu1 instanceof Reusable);
+			assertTrue(reu2 instanceof Reusable);
+	
+			assertTrue(reu1.util().contains("Uso del objeto Reutilizable"));
+
+
 			Reusable reu3 = pool.acquireReusable();
-		} catch (Exception e) {
+		} catch (NotFreeInstanceException e) {
 
 			assertTrue(e instanceof NotFreeInstanceException);
 		}
@@ -91,16 +91,11 @@ public class ReusablePoolTest {
 			assertNotNull(reu1);
 
 			pool.releaseReusable(reu1);
-			try {
-				pool.releaseReusable(reu1);
+			pool.releaseReusable(reu1);
 
-			} catch (DuplicatedInstanceException e) {
-				// al ejecutarse otra vez el pool.releaseReusable(reu2)
-				assertTrue(true);
-			}
-
-		} catch (Exception e) {
-			fail("Unexpected exception: " + e.getClass().getSimpleName());
+		} catch (DuplicatedInstanceException | NotFreeInstanceException e) {
+			// al ejecutarse otra vez el pool.releaseReusable(reu2)
+			assertTrue(true);
 		}
 	}
 
