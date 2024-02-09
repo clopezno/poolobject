@@ -35,6 +35,9 @@ public class ReusablePoolTest {
 	@Test
 	public void testGetInstance() {
 		//fail("Not yet implemented");
+		ReusablePool pool = ReusablePool.getInstance();
+		ReusablePool pool2 = ReusablePool.getInstance();
+		assertTrue(pool2 == pool);
 	}
 
 	/**
