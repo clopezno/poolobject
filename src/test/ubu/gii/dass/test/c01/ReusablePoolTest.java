@@ -42,10 +42,15 @@ public class ReusablePoolTest {
 	@Test
 	public void testGetInstance() {
 		ReusablePool pool = ReusablePool.getInstance();
+		ReusablePool pool2 = ReusablePool.getInstance();
 		//No es nulo
 		assertNotNull(pool);
+		assertNotNull(pool2);
 		//El objeto devuelto es una instancia de ReusablePool
 		assertTrue(pool instanceof ReusablePool);
+		assertTrue(pool2 instanceof ReusablePool);
+		//Comprobamos que se cumple el metodo Singleton
+		assertEquals(pool,pool2);
 	}
 
 	/**
