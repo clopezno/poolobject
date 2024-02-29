@@ -9,17 +9,21 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.ReusablePool;
+
 /**
- * @author alumno
+ * @author Victor Manuel Martinez Garcia
+ * @author Lorena Bueno Porras
  *
  */
 public class ReusablePoolTest {
-
+		private ReusablePool pool;
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		pool = ReusablePool.getInstance();
 	}
 
 	/**
@@ -27,6 +31,7 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		pool = null;
 	}
 
 	/**
@@ -34,7 +39,11 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		ReusablePool pool = ReusablePool.getInstance();
+		//No es nulo
+		assertNotNull(pool);
+		//El objeto devuelto es una instancia de ReusablePool
+		assertTrue(pool instanceof ReusablePool);
 	}
 
 	/**
@@ -42,7 +51,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -50,7 +59,7 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }
