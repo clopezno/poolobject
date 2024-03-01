@@ -16,8 +16,17 @@ Authors:
 - Lorena Bueno Porras
 
 ## Índice
-*[1. ¿Se ha realizado trabajo en equipo?](#¿Se ha realizado trabajo en equipo?)
-*[2. ¿Tiene calidad el conjunto de pruebas disponibles?](#¿Tiene calidad el conjunto de pruebas disponibles?)
-*[3. ¿Cuál es el esfuerzo invertido en realizar la actividad? ](#¿Cuál es el esfuerzo invertido en realizar la actividad? )
-*[4. ¿Cuál es el número de fallos encontrados en el código original?](#¿Cuál es el número de fallos encontrados en el código original?)
-*[5. ¿El proceso de integración continúa realizado ha sido de calidad?](#¿El proceso de integración continúa realizado ha sido de calidad?)
+*[1. ¿Se ha realizado trabajo en equipo?](#¿Se-ha-realizado-trabajo-en-equipo?)
+*[2. ¿Tiene calidad el conjunto de pruebas disponibles?](#¿Tiene-calidad-el-conjunto-de-pruebas-disponibles?)
+*[3. ¿Cuál es el esfuerzo invertido en realizar la actividad?](#¿Cuál-es-el-esfuerzo-invertido-en-realizar-la-actividad?)
+*[4. ¿Cuál es el número de fallos encontrados en el código original?](#¿Cuál-es-el-número-de-fallos-encontrados-en-el-código-original?)
+*[5. ¿El proceso de integración continúa realizado ha sido de calidad?](#¿El-proceso-de-integración-continúa-realizado-ha-sido-de-calidad?)
+
+
+1. ¿Se ha realizado trabajo en equipo?
+2. ¿Tiene calidad el conjunto de pruebas disponibles?
+3. ¿Cuál es el esfuerzo invertido en realizar la actividad?
+4. ¿Cuál es el número de fallos encontrados en el código original?
+5. ¿El proceso de integración continúa realizado ha sido de calidad?
+
+
