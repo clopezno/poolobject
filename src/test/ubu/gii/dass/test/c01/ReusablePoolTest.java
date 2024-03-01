@@ -60,9 +60,12 @@ public class ReusablePoolTest {
 	public void testAcquireReusable() throws NotFreeInstanceException {
 		// Como gestiona 2 objetos, creamos ambos.
 		ReusablePool pool = ReusablePool.getInstance();
+		
+		Reusable pool1 = pool.acquireReusable();
+		Reusable pool2 = pool.acquireReusable();
+		
 		try {
-			Reusable pool1 = pool.acquireReusable();
-			Reusable pool2 = pool.acquireReusable();
+
 			
 			assertNotNull(pool1);
 			assertNotNull(pool2);
@@ -74,30 +77,48 @@ public class ReusablePoolTest {
 			fail("Fallo del test");
 			
 		}
+		//Comprobacion de que no se puede crear un 3º objeto para el pool inicial.
+		try {
+			
+			Reusable pool3 = pool.acquireReusable();
+			assertNotNull(pool3);
+			pool3.util();
+			
+			
+		}catch(Exception NotFreeInstanceException) {
+			
+		}
 		
 	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() {
+	public void testReleaseReusable() throws NotFreeInstanceException {
 		ReusablePool pool = ReusablePool.getInstance();
+		
+		Reusable pool1 = pool.acquireReusable();
+		Reusable pool2 = pool.acquireReusable();
+
+		
+		assertNotNull(pool1);
+		assertNotNull(pool2);
+
+		pool1.util();	
+		pool2.util();
+		
 		try {
-			
-			Reusable pool1 = pool.acquireReusable();
-			Reusable pool2 = pool.acquireReusable();
-			assertNotNull(pool1);
-			assertNotNull(pool2);
-			pool1.util();	
-			pool2.util();	
-			
+
 			pool.releaseReusable(pool1);
 			pool.releaseReusable(pool2);
 			
 		}catch(Exception e) {
 			fail("Fallo del test.");
 		}
+		
+		
 
 	}
 
