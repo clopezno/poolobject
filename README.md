@@ -16,7 +16,7 @@ Authors:
 - Lorena Bueno Porras
 
 ## Índice
-[1. ¿Se ha realizado trabajo en equipo?](#-¿Se-ha-realizado-trabajo-en-equipo?)
+[1. ¿Se ha realizado trabajo en equipo?](#1-se-ha-realizado-trabajo-en-equipo)
 
 [2. ¿Tiene calidad el conjunto de pruebas disponibles?](#¿Tiene-calidad-el-conjunto-de-pruebas-disponibles?)
 
