@@ -82,7 +82,23 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		//fail("Not yet implemented");
+		ReusablePool pool = ReusablePool.getInstance();
+		try {
+			
+			Reusable pool1 = pool.acquireReusable();
+			Reusable pool2 = pool.acquireReusable();
+			assertNotNull(pool1);
+			assertNotNull(pool2);
+			pool1.util();	
+			pool2.util();	
+			
+			pool.releaseReusable(pool1);
+			pool.releaseReusable(pool2);
+			
+		}catch(Exception e) {
+			fail("Fallo del test.");
+		}
+
 	}
 
 }
