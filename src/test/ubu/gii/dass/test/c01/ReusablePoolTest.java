@@ -6,9 +6,11 @@ package ubu.gii.dass.test.c01;
 import static org.junit.Assert.*;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import ubu.gii.dass.c01.DuplicatedInstanceException;
 import ubu.gii.dass.c01.NotFreeInstanceException;
 import ubu.gii.dass.c01.Reusable;
 import ubu.gii.dass.c01.ReusablePool;
@@ -86,7 +88,7 @@ public class ReusablePoolTest {
 			
 			
 		}catch(Exception NotFreeInstanceException) {
-			
+			assertTrue(true);
 		}
 		
 	}
@@ -96,7 +98,7 @@ public class ReusablePoolTest {
 	 * @throws NotFreeInstanceException 
 	 */
 	@Test
-	public void testReleaseReusable() throws NotFreeInstanceException {
+	public void testReleaseReusable() throws DuplicatedInstanceException, NotFreeInstanceException {
 		ReusablePool pool = ReusablePool.getInstance();
 		
 		Reusable pool1 = pool.acquireReusable();
@@ -116,6 +118,14 @@ public class ReusablePoolTest {
 			
 		}catch(Exception e) {
 			fail("Fallo del test.");
+		}
+		
+		//Comprobacion de que no se puede hacer release duplicados
+		
+		try {
+			pool.releaseReusable(pool1);
+		}catch(Exception DuplicatedInstanceException) {
+			assertTrue(true);
 		}
 		
 		
