@@ -17,4 +17,3 @@ jobs:
       - name: Test with Ant
         run: ant -buildfile build.xml test
       - uses: codecov/codecov-action@v1
-      
