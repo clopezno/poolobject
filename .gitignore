@@ -1,7 +1,19 @@
+# Compiled class file
 *.class
+/bin
+
 
 # Package Files #
 *.jar
 *.war
+*.nar
 *.ear
-/bin
+*.zip
+*.tar.gz
+*.rar
+
+
+
+#Eclipse file
+.project
+.classpath
