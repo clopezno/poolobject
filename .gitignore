@@ -17,3 +17,6 @@
 #Eclipse file
 .project
 .classpath
+
+#mvn target
+/target
