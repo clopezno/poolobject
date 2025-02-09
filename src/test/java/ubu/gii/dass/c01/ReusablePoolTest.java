@@ -56,7 +56,8 @@ public class ReusablePoolTest {
 		 * @throws DuplicatedInstanceException 
 		 */
 		@Test
-		@DisplayName("testReleaseReusable")
+		@DisplayName("git commit -m \"testReleaseReusable: Implementación del test para liberar y reutilizar objetos en ReusablePool\"\r\n" + //
+						"")
 		//@Disabled("Not implemented yet") //Desactivar para poder ejectuar la prueba
 		public void testReleaseReusable() throws DuplicatedInstanceException {
 
