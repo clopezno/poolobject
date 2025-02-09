@@ -10,3 +10,9 @@ Authors:
 
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
+
+Alumnos grupo:
+- Luis Ignacio de Luna
+- Ahmad Marie Pascual
+- Adrian Zamora
+- Estíbalitz Díez
