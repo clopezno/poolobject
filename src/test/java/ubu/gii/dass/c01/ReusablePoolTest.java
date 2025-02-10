@@ -34,13 +34,22 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
+	 * Realizado por: Adrián Zamora Sánchez
+	 * Fecha: 10/02/2025
 	 */
 	@Test
-	@DisplayName("testGetInstance")
-	@Disabled("Not implemented yet")
-	public void testGetInstance() {
+    @DisplayName("testGetInstance")
+    public void testGetInstance() {
+        // Se obtienen dos instancias de ReusablePool
+        ReusablePool instance1 = ReusablePool.getInstance();
+        ReusablePool instance2 = ReusablePool.getInstance();
 
-	}
+        // Se verifica que ambas referencias apuntan al mismo objeto (es decir es singleton)
+        assertSame(instance1, instance2, "getInstance() debe devolver siempre la misma instancia");
+
+		// Se comprueba que no son nulas
+        assertNotNull(instance1, "La instancia no debe ser nula");
+    }
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
