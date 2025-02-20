@@ -10,3 +10,6 @@ Authors:
 
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
+- Ibai Moya
+- Nicolás Perez
+- Juan García
