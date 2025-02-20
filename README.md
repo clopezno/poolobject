@@ -13,3 +13,4 @@ Authors:
 - Ibai Moya
 - Nicolás Perez
 - Juan García
+- David Peñasco
