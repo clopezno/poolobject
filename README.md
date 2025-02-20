@@ -1,6 +1,7 @@
-[![codecov](https://codecov.io/gh/Nicop17/poolobject/graph/badge.svg?token=D6XRI5RQA1)](https://codecov.io/gh/Nicop17/poolobject)
 poolobject
 ==========
+
+[![codecov](https://codecov.io/gh/Nicop17/poolobject/graph/badge.svg?token=D6XRI5RQA1)](https://codecov.io/gh/Nicop17/poolobject)
 
 
 Java code example of creational design pattern pool object
@@ -12,6 +13,6 @@ Authors:
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
 - Ibai Moya
-- Nicolás Perez
+- Nicolás Pérez
 - Juan García
 - David Peñasco
