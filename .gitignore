@@ -20,3 +20,6 @@
 
 #mvn target
 /target
+
+#Eclipse folders
+/.settings
