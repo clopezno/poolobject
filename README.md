@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/Nicop17/poolobject/graph/badge.svg?token=D6XRI5RQA1)](https://codecov.io/gh/Nicop17/poolobject)
 poolobject
 ==========
 
@@ -14,4 +15,3 @@ Authors:
 - Nicolás Perez
 - Juan García
 - David Peñasco
-prueba
