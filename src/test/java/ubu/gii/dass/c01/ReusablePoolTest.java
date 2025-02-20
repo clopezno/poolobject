@@ -3,7 +3,8 @@
  */
 package ubu.gii.dass.c01;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,9 +35,12 @@ public class ReusablePoolTest {
 	 */
         @Test
         @DisplayName("testGetInstance")
-        @Disabled("Not implemented yet")
 	public void testGetInstance() {
-		
+        ReusablePool pool1 = ReusablePool.getInstance();
+        ReusablePool pool2 = ReusablePool.getInstance();
+        assertNotNull(pool1);
+        assertNotNull(pool2);
+        assertEquals(pool1, pool2);
 	}
 
 	/**
