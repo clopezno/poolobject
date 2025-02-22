@@ -67,9 +67,21 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	@DisplayName("testReleaseReusable")
-	@Disabled("Not implemented yet")
 	public void testReleaseReusable() {
-
+		ReusablePool pool = ReusablePool.getInstance();
+		Reusable reusable = null;
+        try {
+            reusable = pool.acquireReusable();
+        } catch (NotFreeInstanceException e) {
+            fail("No debería llegar aquí");
+        }
+        try {
+            pool.releaseReusable(reusable);
+        } catch (DuplicatedInstanceException e) {
+        	fail("No debería llegar aquí");
+        }
+        Reusable finalReusable = reusable;
+        assertThrows(DuplicatedInstanceException.class, () -> pool.releaseReusable(finalReusable));	
 	}
 
 }
