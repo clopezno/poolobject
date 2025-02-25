@@ -48,7 +48,7 @@ public class ReusablePoolTest {
 
 	public void testAcquireReusable() {
 		
-	}
+	}//Esto es una prueba de Ivan 2
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
