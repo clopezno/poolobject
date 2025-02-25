@@ -58,6 +58,7 @@ public class ReusablePoolTest {
         @Disabled("Not implemented yet")
 	public void testReleaseReusable() {
 		// Esto es una prueba de Pablo. 
+		// Segundo cambio tras un commit de otro usuario
 	}
 
 }
