@@ -4,6 +4,7 @@
 package ubu.gii.dass.c01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -82,6 +83,15 @@ public class ReusablePoolTest {
         }
         Reusable finalReusable = reusable;
         assertThrows(DuplicatedInstanceException.class, () -> pool.releaseReusable(finalReusable));	
+	}
+	/**
+	 * Test method for
+	 * {@link ubu.gii.dass.c01.Reusable#util}.
+	 */
+	@Test
+	@DisplayName("testReusableUtil")
+	public void testReusableUtil() {
+		assertNotEquals((new Reusable()).util(),(new Reusable()).util());
 	}
 
 }
