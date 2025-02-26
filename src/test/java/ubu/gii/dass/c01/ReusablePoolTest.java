@@ -36,7 +36,7 @@ public class ReusablePoolTest {
         @DisplayName("testGetInstance")
         @Disabled("Not implemented yet")
 	public void testGetInstance() {
-        //Esto es una prueba de Carlos
+        
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class ReusablePoolTest {
 
 	public void testAcquireReusable() {
 		
-	}//Esto es una prueba de Ivan 2
+	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
@@ -57,8 +57,7 @@ public class ReusablePoolTest {
         @DisplayName("testReleaseReusable")
         @Disabled("Not implemented yet")
 	public void testReleaseReusable() {
-		// Esto es una prueba de Pablo. 
-		// Segundo cambio tras un commit de otro usuario
+	
 	}
 
 }
