@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 
 public class ReusablePoolTest {
+	private static ReusablePool pool;
 
     @BeforeAll
     public static void setUp(){
+        pool = ReusablePool.getInstance();
     }
 
     @AfterAll
@@ -31,7 +33,6 @@ public class ReusablePoolTest {
     @Test
     @DisplayName("testAcquireReusable")
     public void testAcquireReusable() {
-        ReusablePool pool = ReusablePool.getInstance();
         Reusable obj1 = pool.acquireReusable();
         Reusable obj2 = pool.acquireReusable();
 
@@ -43,7 +44,6 @@ public class ReusablePoolTest {
     @Test
     @DisplayName("testReleaseReusable")
     public void testReleaseReusable() {
-        ReusablePool pool = ReusablePool.getInstance();
         Reusable obj1 = pool.acquireReusable();
         
         assertNotNull(obj1, "Objeto no deberia ser null");
