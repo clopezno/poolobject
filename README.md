@@ -59,20 +59,15 @@ El esfuerzo invertido se ha medido a través de las horas dedicadas por cada mie
 Enlace a las actividades de cada miembro: https://github.com/cvo0004/poolobject/graphs/contributors 
 
 ### ¿Cuál es el número de fallos encontrados en el código original?
-- Número total de fallos detectados: X
-- Fallos corregidos: X
-- Descripción breve de los fallos:
-  - Manejo incorrecto de DuplicatedInstanceException
-  - Error al liberar un objeto no existente en el pool
+- Número total de fallos detectados: Pensamos que hay un fallo en el método releaseReusable* porque no nos pasaba un test que hicimos, pero no estábamos seguros de que fuese fallo del método en sí y no de la implementación de nuestro test. Por lo que decidimos eliminar esa parte.
+
  
 ### ¿El proceso de integración continua realizado ha sido de calidad?
-El proceso de integración continua (CI) se ha configurado mediante GitHub Actions, ejecutando las pruebas automáticamente tras cada push o pull request.
-- Ejecuciones de CI realizadas: X
-- Ejecuciones exitosas: X
-- Ejecuciones fallidas: X
-- Configuración de CI: https://github.com/cvo0004/poolobject/actions/workflows/Java17CImaven.yml 
+El proceso de integración continua (CI) se ha configurado mediante GitHub Actions con Codecov, ejecutando las pruebas automáticamente tras cada push. Codecov ha ido incrementando su porcentaje de coverage tras cada test implementado.
+
+- Configuración de codecovs para la CI sincronizada con GitHub: https://github.com/cvo0004/poolobject/actions/workflows/Java17CImaven.yml 
 
 # Conclusión
-El equipo ha logrado implementar un conjunto sólido de pruebas unitarias, identificar y corregir errores en el código original, y establecer un proceso efectivo de integración continua. La colaboración ha sido clave para completar la actividad de forma organizada y eficiente.
+El equipo ha logrado implementar pruebas unitarias y establecer un proceso efectivo de integración continua. La colaboración ha sido clave para completar la actividad de forma organizada y eficiente.
 
 Repositorio del proyecto: https://github.com/cvo0004/poolobject 
