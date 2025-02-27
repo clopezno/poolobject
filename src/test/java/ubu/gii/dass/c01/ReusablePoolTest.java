@@ -17,10 +17,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Clase de pruebas unitarias.
+ *  @author Ibai Moya
+ *  @author David Peñasco
+ *  @author Nicolás Pérez
+ *  @author Juan García
+ * 
+ */
 public class ReusablePoolTest {
     private static ReusablePool pool;
     private static final int maxResources = 2;
 
+    /**
+     * Reinicia la instancia del pool antes de cada prueba.
+     * @throws Exception si ocurre un error al reiniciar la instancia.
+     */
     @BeforeEach
     public void resetPool() throws Exception {
         Field instanceField = ReusablePool.class.getDeclaredField("instance");
@@ -29,6 +41,10 @@ public class ReusablePoolTest {
         pool = ReusablePool.getInstance();
     }
     
+    /**
+     * Libera todas las instancias del pool al finalizar todas las pruebas.
+     * @throws Exception si ocurre un error al liberar las instancias.
+     */
     @AfterAll
     public static void tearDown() throws Exception {
         List<Reusable> acquiredReusables = new ArrayList<>();
@@ -50,7 +66,9 @@ public class ReusablePoolTest {
         }
     }
     
-    // Limpieza adicional tras cada prueba para restablecer el estado del pool
+    /**
+     * Limpia el pool de reusables al finalizar cada prueba.
+     */
     @AfterEach
     public void clearPools() {
         try {
@@ -69,6 +87,9 @@ public class ReusablePoolTest {
         }
     }
     
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
+     */
     @Test
     @DisplayName("testGetInstance")
     public void testGetInstance() {
@@ -84,6 +105,9 @@ public class ReusablePoolTest {
         }
     }
     
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+     */
     @Test
     @DisplayName("testAcquireReusable")
     public void testAcquireReusable() {
@@ -124,6 +148,9 @@ public class ReusablePoolTest {
         }
     }
     
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+     */
     @Test
     @DisplayName("testReleaseReusable")
     public void testReleaseReusable() {
@@ -153,6 +180,9 @@ public class ReusablePoolTest {
         }
     }
     
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.Reusable}.
+     */
     @Test
     @DisplayName("testReusableUtil")
     public void testReusableUtil() {
@@ -161,11 +191,17 @@ public class ReusablePoolTest {
                 "Las utilidades de reusables deben ser distintas.");
     }
     
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.Client}.
+     */
     @Test
     @DisplayName("testClient")
     public void testClient() {
-        // Comprobar que la clase Client se instancia y su método main se ejecuta sin errores
+        
+        // Comprueba que la clase Client se instancia y su método main se ejecuta sin errores
+
         assertNotNull(new Client(), "El cliente no debería ser nulo.");
+
         assertDoesNotThrow(() -> Client.main(null), "Client.main no debería lanzar excepción.");
     }
 }
