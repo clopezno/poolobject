@@ -3,6 +3,9 @@
  */
 package ubu.gii.dass.c01;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
@@ -19,7 +22,6 @@ import org.junit.jupiter.api.Disabled;
  */
 public class ReusablePoolTest {
 
-	
 	@BeforeAll
 	public static void setUp(){
 	}
@@ -34,9 +36,12 @@ public class ReusablePoolTest {
 	 */
         @Test
         @DisplayName("testGetInstance")
-        @Disabled("Not implemented yet")
 	public void testGetInstance() {
-		
+		ReusablePool pool1 = ReusablePool.getInstance();
+		ReusablePool pool2 = ReusablePool.getInstance();
+		assertNull(pool1);
+		assertNull(pool2);
+		assertEquals(pool1, pool2, "Both pools are identical");
 	}
 
 	/**
