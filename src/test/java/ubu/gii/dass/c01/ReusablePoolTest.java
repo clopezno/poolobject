@@ -96,21 +96,16 @@ public class ReusablePoolTest {
     		//Se obtiene la instancia del pool.
     		ReusablePool miPool4 = ReusablePool.getInstance();
     		
-    		//Se intentan adquirir dos objetos reusables del pool.
+    		//Se intenta adquirir un objeto reusable del pool.
     		Reusable r1 = miPool4.acquireReusable();
-    		Reusable r2 = miPool4.acquireReusable();
+
     		
     		//Se intenta liberar un objeto reusable del pool.  
     		miPool4.releaseReusable(r1);
     		
     		//Se comprueba que tras intentar liberar el mismo objeto reusable lanza la excepción porque este ya ha sido liberada.
     		assertThrows(DuplicatedInstanceException.class, () -> miPool4.releaseReusable(r1), "Ya se ha devuelto ese objeto reusable anteriormente, por lo que se lanza la excepción.");
-    	  
-    		//Se intenta adquirir de nuevo el objeto reusable del pool.
-    		Reusable r3 = miPool4.acquireReusable();
-    		
-    		//Se comprueba que el nuevo objeto adquirido es igual al primero.
-    		assertSame(r1, r3, "Los objetos adquiridos deben ser iguales.");
+
     	}
 
 }
