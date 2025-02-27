@@ -4,8 +4,9 @@
 package ubu.gii.dass.c01;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
@@ -56,13 +57,13 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 * @throws NotFreeInstanceException 
 	 */
 	@Test
         @DisplayName("testAcquireReusable")
-        @Disabled("Not implemented yet")
 
-	public void testAcquireReusable() {
-		
+	public void testAcquireReusable() throws NotFreeInstanceException {
+		//TODO
 	}
 
 	/**
