@@ -11,3 +11,13 @@ Authors:
 
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
+
+Editors:
+@CesarRodrigu - César Rodríguez Villagrá
+@cnunez1 - Christian Andrés Núñez Duque
+@Tibbitea - Beatrice Izabel Toth
+@Miiaalll - Salomiia Luhova
+
+Links:
+https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura 
+https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura-2
