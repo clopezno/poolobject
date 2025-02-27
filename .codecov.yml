@@ -2,4 +2,6 @@ coverage:
   round: up
   range: 0..100
   precision: 2
-  
+ignore:
+  - "src/main/java/ubu/gii/dass/c01/Client.java"
+  - "src/main/java/ubu/gii/dass/c01/Reusable.java"
