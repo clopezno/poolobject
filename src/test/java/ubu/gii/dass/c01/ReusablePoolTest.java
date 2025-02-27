@@ -43,7 +43,8 @@ public class ReusablePoolTest {
 
 		//Comprueba si la instancia 1 es igual que la instancia 2
       		ReusablePool instance2 = ReusablePool.getInstance();
-      		assertSame(instance1, instance2);		
+      		assertSame(instance1, instance2);
+		
 		
 	}
 
