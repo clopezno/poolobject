@@ -6,7 +6,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Disabled;
+
+import java.util.List;
+import java.util.ArrayList;
 
 public class ReusablePoolTest {
     private static ReusablePool pool;
@@ -14,33 +16,33 @@ public class ReusablePoolTest {
 
     @BeforeAll
     public static void setUp(){
-	pool = ReusablePool.getInstance();
+        pool = ReusablePool.getInstance();
     }
 
     @AfterAll
     public static void tearDown() throws Exception {
-	List<Reusable> acquiredReusables = new ArrayList<>();
-		
-		 while (true) {
-	try {
-		acquiredReusables.add(pool.acquireReusable());
-	    } catch (NotFreeInstanceException e) {
-		break; 
-	    }
-	 }
-	
-		 for (Reusable reusable : acquiredReusables) {
-	    try {
-		pool.releaseReusable(reusable);
-	    } catch (DuplicatedInstanceException e) {
-		System.err.println("Error al liberar una instancia: " + e.getMessage());
-	    }
-		 }	
-	}
+        List<Reusable> acquiredReusables = new ArrayList<>();
+            
+        while (true) {
+            try {
+                acquiredReusables.add(pool.acquireReusable());
+            } catch (NotFreeInstanceException e) {
+                break; 
+            }
+        }
+        
+        for (Reusable reusable : acquiredReusables) {
+            try {
+                pool.releaseReusable(reusable);
+            } catch (DuplicatedInstanceException e) {
+                System.err.println("Error al liberar una instancia: " + e.getMessage());
+            }
+        }    
+    }
 
     /**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstanceReusable()}.
-	 */
+     * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstanceReusable()}.
+     */
     @Test
     @DisplayName("testGetInstance")
     public void testGetInstance() {
@@ -55,43 +57,44 @@ public class ReusablePoolTest {
         }
     }
 
-	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
-	 */
-	@Test
-	@DisplayName("testAcquireReusable")
-	public void testAcquireReusable() {
-		
-		// Se almacenan los reusables adquiridos para compararlos
-		Reusable[] reusables = new Reusable[ReusablePoolTest.maxResources];
-		
-		for (int numReusable = 0; numReusable < ReusablePoolTest.maxResources; numReusable++) {
-			try {
-				reusables[numReusable] = pool.acquireReusable();
-				assertNotNull(reusables[numReusable], "El reusable obtenido es nulo.");
-			} catch (NotFreeInstanceException ex) {
-				fail("Error al adquirir una nueva instancia reusable: " + ex.getMessage());
-			}
-		}
-		
-		// Verifica que los reusables adquiridos sean distintos entre sí
-		for (int i = 0; i < ReusablePoolTest.maxResources - 1; i++) {
-			for (int j = i + 1; j < ReusablePoolTest.maxResources; j++) {
-				assertNotEquals(reusables[i], reusables[j], "Los reusables deben ser distintos.");
-			}
-		}
-			
-		// Comprueba que una nueva adquisición lanza una excepción
-		try {
-			pool.acquireReusable();
-			fail("Excepcion NotFreeInstanceException no se ha lanzado al adquirir una nueva instancia reusable");
-		} catch (NotFreeInstanceException ex) {
-			// Se espera una excepción, si llega hasta aquí, el código es correcto.
-		}
+    /**
+     * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+     */
+    @Test
+    @DisplayName("testAcquireReusable")
+    public void testAcquireReusable() {
+        
+        // Se almacenan los reusables adquiridos para compararlos
+        Reusable[] reusables = new Reusable[ReusablePoolTest.maxResources];
+        
+        for (int numReusable = 0; numReusable < ReusablePoolTest.maxResources; numReusable++) {
+            try {
+                reusables[numReusable] = pool.acquireReusable();
+                assertNotNull(reusables[numReusable], "El reusable obtenido es nulo.");
+            } catch (NotFreeInstanceException ex) {
+                fail("Error al adquirir una nueva instancia reusable: " + ex.getMessage());
+            }
+        }
+        
+        // Verifica que los reusables adquiridos sean distintos entre sí
+        for (int i = 0; i < ReusablePoolTest.maxResources - 1; i++) {
+            for (int j = i + 1; j < ReusablePoolTest.maxResources; j++) {
+                assertNotEquals(reusables[i], reusables[j], "Los reusables deben ser distintos.");
+            }
+        }
+            
+        // Comprueba que una nueva adquisición lanza una excepción
+        try {
+            pool.acquireReusable();
+            fail("Excepcion NotFreeInstanceException no se ha lanzado al adquirir una nueva instancia reusable");
+        } catch (NotFreeInstanceException ex) {
+            // Se espera una excepción, si llega hasta aquí, el código es correcto.
+        }
+    }
 
     /**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()}.
-	 */
+     * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()}.
+     */
     @Test
     @DisplayName("testReleaseReusable")
     public void testReleaseReusable() {
@@ -104,6 +107,7 @@ public class ReusablePoolTest {
             
             Reusable obj2 = pool.acquireReusable();
             assertSame(obj1, obj2, "Tiene que ser reusado");
+			pool.releaseReusable(obj2);
         } catch (Exception e) {
             fail("Excepcion en testReleaseReusable: " + e.getMessage());
         }
