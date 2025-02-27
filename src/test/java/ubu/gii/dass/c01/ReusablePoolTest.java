@@ -26,6 +26,13 @@ import org.junit.jupiter.api.Test;
 public class ReusablePoolTest {
 	private static final int num = 2;
 
+	/*
+	* Funcionalidad: Se ejecuta después de cada prueba e intenta adquirir todas las instancias reutilizables
+	* del pool y luego libera nuevas instancias para restablecer el estado del pool.
+	* 
+	* @throws NotFreeInstanceException si no hay instancias libres disponibles en el pool.
+	* @throws DuplicatedInstanceException si una instancia se libera más de una vez.
+	*/
 	@AfterEach
 	public void despues() {
 		ReusablePool pool = ReusablePool.getInstance();
