@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ReusablePoolTest {
     private static ReusablePool pool;
-    private static final int maxResources = 2;
+    private static final int MAX_RESOURCES = 2;
 
     /**
      * Reinicia la instancia del pool antes de cada prueba.
@@ -48,7 +48,7 @@ public class ReusablePoolTest {
     @AfterAll
     public static void tearDown() throws Exception {
         List<Reusable> acquiredReusables = new ArrayList<>();
-        // Adquirir todas las instancias disponibles del pool.
+        /* Se adquieren todas las instancias disponibles del pool. */
         while (true) {
             try {
                 acquiredReusables.add(pool.acquireReusable());
@@ -56,7 +56,7 @@ public class ReusablePoolTest {
                 break;
             }
         }
-        // Liberar las instancias obtenidas.
+        /* Se liberan las instancias obtenidas. */
         for (Reusable reusable : acquiredReusables) {
             try {
                 pool.releaseReusable(reusable);
@@ -71,18 +71,21 @@ public class ReusablePoolTest {
      */
     @AfterEach
     public void clearPools() {
+        List<Reusable> tempList = new ArrayList<>();
         try {
+            /* Acumula todas las instancias adquiribles. */
             while (true) {
-                pool.acquireReusable();
+                tempList.add(pool.acquireReusable());
             }
         } catch (NotFreeInstanceException e) {
+            /* Cuando no se pueden adquirir más instancias se sale del bucle. */
+        }
+        /* Se devuelve todas las instancias acumuladas para restaurar el pool. */
+        for (Reusable reusable : tempList) {
             try {
-                System.out.println("Intermedio: " + pool);
-                for (int i = 0; i < maxResources; i++) {
-                    pool.releaseReusable(new Reusable());
-                }
+                pool.releaseReusable(reusable);
             } catch (Exception ex) {
-                // Se ignoran excepciones en la limpieza.
+                /* Se ignoran las excepciones durante la restauración del pool. */
             }
         }
     }
@@ -98,8 +101,8 @@ public class ReusablePoolTest {
             ReusablePool pool2 = ReusablePool.getInstance();
             assertNotNull(pool1, "La instancia pool1 no debería ser nula.");
             assertNotNull(pool2, "La instancia pool2 no debería ser nula.");
-            assertSame(pool1, pool2, "Ambos deben ser idénticos");
-            assertEquals(pool1, pool2, "Ambos deben ser iguales");
+            assertSame(pool1, pool2, "Ambos deben ser idénticos.");
+            assertEquals(pool1, pool2, "Ambos deben ser iguales.");
         } catch (Exception e) {
             fail("Excepción en testGetInstance: " + e.getMessage());
         }
@@ -111,11 +114,11 @@ public class ReusablePoolTest {
     @Test
     @DisplayName("testAcquireReusable")
     public void testAcquireReusable() {
-        // Almacenar las instancias adquiridas para posteriores comprobaciones
-        Reusable[] reusables = new Reusable[maxResources];
+        /* Se almacenan las instancias adquiridas para posteriores comprobaciones. */
+        Reusable[] reusables = new Reusable[MAX_RESOURCES];
         
-        // Adquirir el número máximo de instancias disponibles
-        for (int i = 0; i < maxResources; i++) {
+        /* Se adquieren el número máximo de instancias disponibles. */
+        for (int i = 0; i < MAX_RESOURCES; i++) {
             try {
                 reusables[i] = pool.acquireReusable();
                 assertNotNull(reusables[i], "El reusable obtenido es nulo.");
@@ -124,24 +127,24 @@ public class ReusablePoolTest {
             }
         }
         
-        // Verificar que cada instancia adquirida es única
-        for (int i = 0; i < maxResources - 1; i++) {
-            for (int j = i + 1; j < maxResources; j++) {
+        /* Se verifica que cada instancia adquirida es única. */
+        for (int i = 0; i < MAX_RESOURCES - 1; i++) {
+            for (int j = i + 1; j < MAX_RESOURCES; j++) {
                 assertNotEquals(reusables[i], reusables[j], "Los reusables deben ser distintos.");
             }
         }
         
-        // Comprobar que una nueva adquisición lanza la excepción esperada
+        /* Se comprueba que una nueva adquisición lanza la excepción esperada. */
         assertThrows(NotFreeInstanceException.class, () -> {
             pool.acquireReusable();
         }, "No se lanzó NotFreeInstanceException al intentar adquirir más instancias.");
         
-        // Caso límite: liberar una instancia y volver a adquirirla
+        /* Se prueba el caso límite: liberar una instancia y volver a adquirirla. */
         try {
             pool.releaseReusable(reusables[0]);
             Reusable reciclado = pool.acquireReusable();
             assertNotNull(reciclado, "El reusable reciclado es nulo.");
-            assertSame(reusables[0], reciclado, "El recurso debe ser reutilizado tras liberarlo");
+            assertSame(reusables[0], reciclado, "El recurso debe ser reutilizado tras liberarlo.");
             pool.releaseReusable(reciclado);
         } catch (Exception e) {
             fail("Error en el caso límite adicional de testAcquireReusable: " + e.getMessage());
@@ -164,14 +167,14 @@ public class ReusablePoolTest {
             assertSame(obj1, obj2, "El reusable debe ser reutilizado.");
             pool.releaseReusable(obj2);
     
-            // Caso límite: liberar null no debe lanzar excepción.
+            /* Se prueba el caso límite: liberar null no debe lanzar excepción. */
             assertDoesNotThrow(() -> pool.releaseReusable(null), "releaseReusable(null) no debe lanzar excepción.");
     
-            // Caso límite: liberar un objeto no gestionado por el pool.
+            /* Se prueba el caso límite: liberar un objeto no gestionado por el pool no debe lanzar excepción. */
             Reusable fakeReusable = new Reusable();
             assertDoesNotThrow(() -> pool.releaseReusable(fakeReusable), "releaseReusable(fakeReusable) no debe lanzar excepción.");
     
-            // Caso límite: intentar liberar nuevamente el mismo objeto debe lanzar excepción.
+            /* Se prueba el caso límite: intentar liberar nuevamente el mismo objeto debe lanzar excepción. */
             assertThrows(DuplicatedInstanceException.class, () -> {
                 pool.releaseReusable(obj2);
             }, "No se lanzó DuplicatedInstanceException al intentar liberar dos veces el mismo objeto.");
@@ -181,27 +184,28 @@ public class ReusablePoolTest {
     }
     
     /**
-     * Método de prueba para la clase {@link ubu.gii.dass.c01.Reusable}.
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.Reusable#util()}.
      */
     @Test
-    @DisplayName("testReusableUtil")
-    public void testReusableUtil() {
-        // Verificar que el método util() genera resultados individuales
-        assertNotEquals((new Reusable()).util(), (new Reusable()).util(),
-                "Las utilidades de reusables deben ser distintas.");
+    @DisplayName("testUtilMethod")
+    public void testUtilMethod() {
+
+        /* Se comprueba que el método util() retorne valores diferentes para instancias distintas. */
+        Reusable reusableA = new Reusable();
+        Reusable reusableB = new Reusable();
+        assertNotEquals(reusableA.util(), reusableB.util(), "Se esperaba que las salidas de util() fueran diferentes.");
     }
     
     /**
-     * Método de prueba para la clase {@link ubu.gii.dass.c01.Client}.
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.Client#main()}.
      */
     @Test
-    @DisplayName("testClient")
-    public void testClient() {
-        
-        // Comprueba que la clase Client se instancia y su método main se ejecuta sin errores
+    @DisplayName("testClientMain")
+    public void testClientMain() {
 
-        assertNotNull(new Client(), "El cliente no debería ser nulo.");
-
-        assertDoesNotThrow(() -> Client.main(null), "Client.main no debería lanzar excepción.");
+        /* Se valida que Client se inicializa correctamente y que su método main se ejecute sin incidencias. */
+        Client clientInstance = new Client();
+        assertNotNull(clientInstance, "Se requería que la instancia de Client no fuese nula.");
+        assertDoesNotThrow(() -> Client.main(new String[]{}), "La ejecución de Client.main no debió lanzar excepción.");
     }
 }
