@@ -15,7 +15,7 @@ public class ReusablePoolTest {
     private static final int maxResources = 2;
 
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
         pool = ReusablePool.getInstance();
     }
 
@@ -107,7 +107,12 @@ public class ReusablePoolTest {
             
             Reusable obj2 = pool.acquireReusable();
             assertSame(obj1, obj2, "Tiene que ser reusado");
-			pool.releaseReusable(obj2);
+            pool.releaseReusable(obj2);
+
+            // Try to release the same object again to trigger DuplicatedInstanceException
+            assertThrows(DuplicatedInstanceException.class, () -> {
+                pool.releaseReusable(obj2);
+            });
         } catch (Exception e) {
             fail("Excepcion en testReleaseReusable: " + e.getMessage());
         }
