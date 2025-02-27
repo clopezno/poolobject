@@ -24,4 +24,4 @@ Información sobre el las pruebas de Coberturas:
 
 https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura 
 https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura-2
-https://img.shields.io/badge/wiki-avaliable%20here-brightgreen?link=https%3A%2F%2Fgithub.com%2FCesarRodrigu%2Fpoolobject%2Fwiki
+
