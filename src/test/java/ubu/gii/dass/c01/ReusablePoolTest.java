@@ -55,16 +55,31 @@ public class ReusablePoolTest {
         assertSame(miPool, miPool2, "Ambas instancias apuntan al mismo objeto en memoria.");
 	}
 
-	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
-	 * @throws NotFreeInstanceException 
-	 */
-	@Test
-        @DisplayName("testAcquireReusable")
-
-	public void testAcquireReusable() throws NotFreeInstanceException {
-		//TODO
-	}
+        /**
+    	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+    	 * @throws NotFreeInstanceException
+    	 */
+    	@Test
+            @DisplayName("testAcquireReusable")
+     
+    	public void testAcquireReusable() throws NotFreeInstanceException {
+    		//Se obtiene la instancia del pool.
+            ReusablePool miPool3 = ReusablePool.getInstance();
+            
+            //Se intenta adquirir el primer objeto reusable del pool.
+            Reusable r1 = miPool3.acquireReusable();
+            assertNotNull(r1, "El objeto adquirido no debe ser null.");
+            
+            //Se intenta adquirir el segundo objeto reusable del pool.
+            Reusable r2 = miPool3.acquireReusable();
+            assertNotNull(r2, "El segundo objeto adquirido no debe ser null.");
+            
+            //Se verifica que los objetos adquiridos son diferentes
+            assertNotSame(r1, r2, "Los objetos adquiridos deben ser diferentes.");
+            
+            //Trata de adquirir un tercer objeto reusable y como ya han sido adquiridos los dos existentes lanza la excepción.
+            assertThrows(NotFreeInstanceException.class, () -> miPool3.acquireReusable(), "Ya se han adquirido los 2 objetos existentes, por lo que se lanza la excepción.");     
+    	}
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
