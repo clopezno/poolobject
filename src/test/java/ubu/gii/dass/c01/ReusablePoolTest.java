@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -98,7 +99,7 @@ public class ReusablePoolTest {
             pool.acquireReusable();
         }, "No se lanzó NotFreeInstanceException al intentar adquirir más instancias.");
 
-        // Caso límite adicional: Liberar una instancia y volver a adquirirla
+        // Caso límite: Liberar una instancia y volver a adquirirla
         try {
             pool.releaseReusable(reusables[0]);
             Reusable reciclado = pool.acquireReusable();
@@ -127,15 +128,14 @@ public class ReusablePoolTest {
             assertSame(obj1, obj2, "El reusable debe ser reutilizado.");
             pool.releaseReusable(obj2);
 
-            // Caso límite: liberar null. Se acepta sin lanzar excepción.
-            pool.releaseReusable(null);  
+            // Caso límite: liberar null. Se verifica que no se lance excepción.
+            assertDoesNotThrow(() -> pool.releaseReusable(null), "releaseReusable(null) no debe lanzar excepción.");
 
             // Caso límite: liberar un objeto no gestionado por el pool.
             Reusable fakeReusable = new Reusable();
-            pool.releaseReusable(fakeReusable);  
+            assertDoesNotThrow(() -> pool.releaseReusable(fakeReusable), "releaseReusable(fakeReusable) no debe lanzar excepción.");
 
-            // Caso límite adicional: intentar liberar nuevamente el mismo objeto
-            // Se elimina la llamada duplicada que causaba la excepción no capturada.
+            // Caso límite: intentar liberar nuevamente el mismo objeto debe lanzar DuplicatedInstanceException
             assertThrows(DuplicatedInstanceException.class, () -> {
                 pool.releaseReusable(obj2);
             }, "No se lanzó DuplicatedInstanceException al intentar liberar dos veces el mismo objeto.");
