@@ -19,7 +19,24 @@ public class ReusablePoolTest {
 
     @AfterAll
     public static void tearDown() throws Exception {
-    }
+	List<Reusable> acquiredReusables = new ArrayList<>();
+		
+		 while (true) {
+	try {
+		acquiredReusables.add(pool.acquireReusable());
+	    } catch (NotFreeInstanceException e) {
+		break; 
+	    }
+	 }
+	
+		 for (Reusable reusable : acquiredReusables) {
+	    try {
+		pool.releaseReusable(reusable);
+	    } catch (DuplicatedInstanceException e) {
+		System.err.println("Error al liberar una instancia: " + e.getMessage());
+	    }
+		 }	
+	}
 
     /**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstanceReusable()}.
