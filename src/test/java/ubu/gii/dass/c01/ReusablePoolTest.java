@@ -19,6 +19,9 @@ import org.junit.jupiter.api.Disabled;
 
 /**
  * @author  <A HREF="mailto:cvo0004@alu.ubu.es">Carlos Venero Ortega</A>
+ * @author  <A HREF="mailto:ifp1001@alu.ubu.es">Ivan Fernandez Pardo </A>
+ * @author  <A HREF="mailto:mfc1027@alu.ubu.es">Mario Flores Cano</A>
+ * @author  <A HREF="mailto:pac1005@alu.ubu.es">Pablo Alonso Cameselle</A>
  *
  */
 public class ReusablePoolTest {
@@ -81,14 +84,27 @@ public class ReusablePoolTest {
             assertThrows(NotFreeInstanceException.class, () -> miPool3.acquireReusable(), "Ya se han adquirido los 2 objetos existentes, por lo que se lanza la excepción.");     
     	}
 
-	/**
-	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
-	 */
-	@Test
-        @DisplayName("testReleaseReusable")
-        @Disabled("Not implemented yet")
-	public void testReleaseReusable() {
-	
-	}
+    	/**
+    	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
+    	 * @throws NotFreeInstanceException
+    	 * @throws DuplicatedInstanceException
+    	 */
+    	@Test
+            @DisplayName("testReleaseReusable")
+
+    	public void testReleaseReusable() throws NotFreeInstanceException, DuplicatedInstanceException {
+    		//Se obtiene la instancia del pool.
+    		ReusablePool miPool4 = ReusablePool.getInstance();
+    		
+    		//Se intenta adquirir un objeto reusable del pool.
+    		Reusable r1 = miPool4.acquireReusable();
+    		
+    		//Se intenta liberar un objeto reusable del pool.  
+    		miPool4.releaseReusable(r1);
+    		
+    		//Se comprueba que tras intentar liberar el mismo objeto reusable lanza la excepción porque este ya ha sido liberada.
+    		assertThrows(DuplicatedInstanceException.class, () -> miPool4.releaseReusable(r1), "Ya se ha devuelto ese objeto reusable anteriormente, por lo que se lanza la excepción.");
+    	  
+    	}
 
 }
