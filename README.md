@@ -3,6 +3,7 @@ poolobject
 
 [![codecov](https://codecov.io/gh/Nicop17/poolobject/graph/badge.svg?token=D6XRI5RQA1)](https://codecov.io/gh/Nicop17/poolobject)
 [![Java CI with Maven](https://github.com/Nicop17/poolobject/actions/workflows/Java17CImaven.yml/badge.svg)](https://github.com/Nicop17/poolobject/actions/workflows/Java17CImaven.yml)
+[![Wiki Home](https://img.shields.io/badge/Wiki-Home-blue?style=flat-square)](https://github.com/tu_usuario/tu_repositorio/wiki)
 
 
 
