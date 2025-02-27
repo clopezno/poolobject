@@ -50,7 +50,7 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
-	 */
+	 
 	@Test
         @DisplayName("testAcquireReusable")
         @Disabled("Not implemented yet")
@@ -61,12 +61,12 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
-	 */
+	
 	@Test
         @DisplayName("testReleaseReusable")
         @Disabled("Not implemented yet")
 	public void testReleaseReusable() {
 		
 	}
-
+ */
 }
