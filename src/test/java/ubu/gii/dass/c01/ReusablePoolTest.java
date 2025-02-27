@@ -18,6 +18,9 @@ public class ReusablePoolTest {
     public static void tearDown() throws Exception {
     }
 
+    /**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstanceReusable()}.
+	 */
     @Test
     @DisplayName("testGetInstance")
     public void testGetInstance() {
@@ -32,22 +35,43 @@ public class ReusablePoolTest {
         }
     }
 
-    @Test
-    @DisplayName("testAcquireReusable")
-    public void testAcquireReusable() {
-        try {
-            ReusablePool pool = ReusablePool.getInstance();
-            Reusable obj1 = pool.acquireReusable();
-            Reusable obj2 = pool.acquireReusable();
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	 */
+	@Test
+	@DisplayName("testAcquireReusable")
+	public void testAcquireReusable() {
+		
+		// Se almacenan los reusables adquiridos para compararlos
+		Reusable[] reusables = new Reusable[ReusablePoolTest.maxResources];
+		
+		for (int numReusable = 0; numReusable < ReusablePoolTest.maxResources; numReusable++) {
+			try {
+				reusables[numReusable] = pool.acquireReusable();
+				assertNotNull(reusables[numReusable], "El reusable obtenido es nulo.");
+			} catch (NotFreeInstanceException ex) {
+				fail("Error al adquirir una nueva instancia reusable: " + ex.getMessage());
+			}
+		}
+		
+		// Verifica que los reusables adquiridos sean distintos entre sí
+		for (int i = 0; i < ReusablePoolTest.maxResources - 1; i++) {
+			for (int j = i + 1; j < ReusablePoolTest.maxResources; j++) {
+				assertNotEquals(reusables[i], reusables[j], "Los reusables deben ser distintos.");
+			}
+		}
+			
+		// Comprueba que una nueva adquisición lanza una excepción
+		try {
+			pool.acquireReusable();
+			fail("Excepcion NotFreeInstanceException no se ha lanzado al adquirir una nueva instancia reusable");
+		} catch (NotFreeInstanceException ex) {
+			// Se espera una excepción, si llega hasta aquí, el código es correcto.
+		}
 
-            assertNotNull(obj1, "El primero no tiene que ser null");
-            assertNotNull(obj2, "El segundo no tiene que ser null");
-            assertNotSame(obj1, obj2, "Los objetos tienen que ser diferentes");
-        } catch (Exception e) {
-            fail("Excepcion en testAcquireReusable: " + e.getMessage());
-        }
-    }
-
+    /**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable()}.
+	 */
     @Test
     @DisplayName("testReleaseReusable")
     public void testReleaseReusable() {
