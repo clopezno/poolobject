@@ -49,7 +49,9 @@ El conjunto de pruebas cuenta con una buena cobertura de código, validando el c
 - Número total de tests: 3
 - Pruebas exitosas: 3
 - Pruebas fallidas: 0
-- Cobertura de código: 100%
+- Cobertura de código: 100% nota: nota: _(Se hace que se ignoren en Codecov las clases Client.java y Reusable.java, ya que estas_
+_influyen en el porcentaje de coverage, cuando en realidad el enunciado_
+_sólo pide  testear la clase ReusablePool.java)
 Informe de cobertura: https://app.codecov.io/gh/cvo0004/poolobject
 
 ### ¿Cuál es el esfuerzo invertido en realizar la actividad?
