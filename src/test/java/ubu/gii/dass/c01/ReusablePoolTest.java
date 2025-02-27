@@ -4,6 +4,7 @@
 package ubu.gii.dass.c01;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,14 +34,15 @@ public class ReusablePoolTest {
 
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
+	 * Comprobamos que se cree la instancia en pool1 y que pool2 recibe el mismo objeto que pool1.
 	 */
         @Test
         @DisplayName("testGetInstance")
 	public void testGetInstance() {
 		ReusablePool pool1 = ReusablePool.getInstance();
 		ReusablePool pool2 = ReusablePool.getInstance();
-		assertNull(pool1);
-		assertNull(pool2);
+		assertNotNull(pool1);
+		assertNotNull(pool2);
 		assertEquals(pool1, pool2, "Both pools are identical");
 	}
 
