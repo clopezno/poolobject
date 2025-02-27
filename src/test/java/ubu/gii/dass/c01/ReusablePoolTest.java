@@ -9,9 +9,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Disabled;
 
 public class ReusablePoolTest {
+    private static ReusablePool pool;
+    private static final int maxResources = 2;
 
     @BeforeAll
     public static void setUp(){
+	pool = ReusablePool.getInstance();
     }
 
     @AfterAll
