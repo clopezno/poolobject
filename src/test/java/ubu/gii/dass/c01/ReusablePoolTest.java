@@ -41,6 +41,7 @@ public class ReusablePoolTest {
         pool = ReusablePool.getInstance();
     }
     
+
     /**
      * Libera todas las instancias del pool al finalizar todas las pruebas.
      * @throws Exception si ocurre un error al liberar las instancias.
@@ -66,6 +67,7 @@ public class ReusablePoolTest {
         }
     }
     
+
     /**
      * Limpia el pool de reusables al finalizar cada prueba.
      */
@@ -90,6 +92,7 @@ public class ReusablePoolTest {
         }
     }
     
+
     /**
      * Método de prueba para la clase {@link ubu.gii.dass.c01.ReusablePool#getInstance()}.
      */
@@ -151,6 +154,7 @@ public class ReusablePoolTest {
         }
     }
     
+
     /**
      * Método de prueba para la clase {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
      */
@@ -183,19 +187,7 @@ public class ReusablePoolTest {
         }
     }
     
-    /**
-     * Método de prueba para la clase {@link ubu.gii.dass.c01.Reusable#util()}.
-     */
-    @Test
-    @DisplayName("testUtilMethod")
-    public void testUtilMethod() {
 
-        /* Se comprueba que el método util() retorne valores diferentes para instancias distintas. */
-        Reusable reusableA = new Reusable();
-        Reusable reusableB = new Reusable();
-        assertNotEquals(reusableA.util(), reusableB.util(), "Se esperaba que las salidas de util() fueran diferentes.");
-    }
-    
     /**
      * Método de prueba para la clase {@link ubu.gii.dass.c01.Client#main()}.
      */
@@ -207,5 +199,19 @@ public class ReusablePoolTest {
         Client clientInstance = new Client();
         assertNotNull(clientInstance, "Se requería que la instancia de Client no fuese nula.");
         assertDoesNotThrow(() -> Client.main(new String[]{}), "La ejecución de Client.main no debió lanzar excepción.");
+    }
+
+
+    /**
+     * Método de prueba para la clase {@link ubu.gii.dass.c01.Reusable#util()}.
+     */
+    @Test
+    @DisplayName("testUtilMethod")
+    public void testUtilMethod() {
+
+        /* Se comprueba que el método util() retorne valores diferentes para instancias distintas. */
+        Reusable reusableA = new Reusable();
+        Reusable reusableB = new Reusable();
+        assertNotEquals(reusableA.util(), reusableB.util(), "Se esperaba que las salidas de util() fueran diferentes.");
     }
 }
