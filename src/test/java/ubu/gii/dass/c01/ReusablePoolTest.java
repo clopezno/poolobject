@@ -78,7 +78,7 @@ public class ReusablePoolTest {
 			// Si hay excepción, imprimirá un mensaje de error
 			fail("No se lanzaría una excepción si hemos adquirirido un objeto reusable del pool");
         }
-	 */
+	
 		
 	}
 
@@ -118,5 +118,5 @@ public class ReusablePoolTest {
 
 		 }
 	 }
- */
+
 }
