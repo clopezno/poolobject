@@ -84,5 +84,30 @@ public class ReusablePoolTest {
 		}
 	}
 
+	/**
+	 * Test method for exception when releasing a duplicate instance.
+	 */
+	@Test
+	@DisplayName("testReleaseReusableDuplicated")
+	public void testReleaseReusableDuplicated() {
+		ReusablePool pool = ReusablePool.getInstance();
+		
+		try {
+			Reusable reusable = pool.acquireReusable();
+			
+			pool.releaseReusable(reusable);
+			
+			try {
+				pool.releaseReusable(reusable);
+				fail("Should have thrown DuplicatedInstanceException");
+			} catch (DuplicatedInstanceException e) {
+				assertEquals("Ya existe esa instancia en el pool.", e.getMessage());
+			}
+			
+		} catch (Exception e) {
+			fail("Unexpected exception: " + e.getMessage());
+		}
+	}
+
 	
 }
