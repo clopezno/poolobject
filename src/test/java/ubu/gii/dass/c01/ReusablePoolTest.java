@@ -143,4 +143,21 @@ public class ReusablePoolTest {
 	}
 
 	
+	/**
+	 * Test method for Reusable.util() functionality.
+	 */
+	@Test
+	@DisplayName("testReusableUtil")
+	public void testReusableUtil() {
+		Reusable reusable = new Reusable();
+		
+		String utilString = reusable.util();
+		
+		assertTrue(utilString.contains(String.valueOf(reusable.hashCode())), 
+				   "Util string should contain the object's hashcode");
+		assertTrue(utilString.contains(":Uso del objeto Reutilizable"), 
+				   "Util string should contain the expected message");
+	}
+
+	
 }
