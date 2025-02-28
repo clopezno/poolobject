@@ -54,5 +54,35 @@ public class ReusablePoolTest {
 	 }
 
 	
+	/**
+	 * Test method for exception when no free instances are available.
+	 */
+	@Test
+	@DisplayName("testAcquireReusableWhenNoFreeInstances")
+	public void testAcquireReusableWhenNoFreeInstances() {
+		ReusablePool pool = ReusablePool.getInstance();
+		
+		try {
+			Reusable r1 = pool.acquireReusable();
+			Reusable r2 = pool.acquireReusable();
+			
+			assertNotNull(r1, "First reusable should not be null");
+			assertNotNull(r2, "Second reusable should not be null");
+
+			try {
+				pool.acquireReusable();
+				fail("Should have thrown NotFreeInstanceException");
+			} catch (NotFreeInstanceException e) {
+				assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde", e.getMessage());
+			}
+
+			pool.releaseReusable(r1);
+			pool.releaseReusable(r2);
+			
+		} catch (Exception e) {
+			fail("Unexpected exception: " + e.getMessage());
+		}
+	}
+
 	
 }
