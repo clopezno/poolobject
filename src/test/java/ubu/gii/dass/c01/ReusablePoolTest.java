@@ -31,14 +31,34 @@ public class ReusablePoolTest {
       		ReusablePool instance2 = ReusablePool.getInstance();
       		assertSame(instance1, instance2);		
 	}
-	
+	/**
+	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#acquireReusable()}.
+	*/
+		@Test
+    	@DisplayName("testAcquireReusable")
+	public void testAcquireReusable() {
+
+		ReusablePool pool = ReusablePool.getInstance();
+		try {
+
+			Reusable reusable = pool.acquireReusable();
+
+			assertNotNull(reusable,"El objeto reusable adquirido no debería ser nulo");
+
+        	assertTrue(reusable instanceof Reusable, "El objeto adquirido debe ser una instancia de Reusable");
+		} catch (NotFreeInstanceException e) {
+			fail("No se lanzaría una excepción si hemos adquirirido un objeto reusable del pool");
+        }
+		
+	}
 	/**
 	 * Test method for {@link ubu.gii.dass.c01.ReusablePool#releaseReusable(ubu.gii.dass.c01.Reusable)}.
-	 * @throws NotFreeInstanceException 
-	*/ 
-	 @Test
-	 @DisplayName("testReleaseReusable")
-	 public void testReleaseReusable() throws DuplicatedInstanceException, NotFreeInstanceException {	 		ReusablePool pool = ReusablePool.getInstance();
+		 * @throws NotFreeInstanceException 
+		*/ 
+		 @Test
+		 @DisplayName("testReleaseReusable")
+		 public void testReleaseReusable() throws DuplicatedInstanceException, NotFreeInstanceException {
+	 		ReusablePool pool = ReusablePool.getInstance();
 			Reusable reusable = new Reusable();
 		 try{
 			 pool.releaseReusable(reusable);
@@ -53,7 +73,6 @@ public class ReusablePoolTest {
 		 }
 	 }
 
-	
 	/**
 	 * Test method for exception when no free instances are available.
 	 */
@@ -142,7 +161,6 @@ public class ReusablePoolTest {
 		}
 	}
 
-	
 	/**
 	 * Test method for Reusable.util() functionality.
 	 */
@@ -159,5 +177,20 @@ public class ReusablePoolTest {
 				   "Util string should contain the expected message");
 	}
 
-	
+	/**
+	 * Test method for exception classes.
+	 */
+	@Test
+	@DisplayName("testExceptionMessages")
+	public void testExceptionMessages() {
+		NotFreeInstanceException notFreeEx = new NotFreeInstanceException();
+		assertEquals("No hay más instancias reutilizables disponibles. Reintentalo más tarde", 
+					 notFreeEx.getMessage(), 
+					 "NotFreeInstanceException should have correct message");
+		
+		DuplicatedInstanceException dupEx = new DuplicatedInstanceException();
+		assertEquals("Ya existe esa instancia en el pool.", 
+					 dupEx.getMessage(), 
+					 "DuplicatedInstanceException should have correct message");
+	}
 }
