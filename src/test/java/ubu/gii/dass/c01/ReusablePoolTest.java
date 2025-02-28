@@ -109,5 +109,38 @@ public class ReusablePoolTest {
 		}
 	}
 
+	/**
+	 * Test for proper functioning of the pool with multiple operations.
+	 */
+	@Test
+	@DisplayName("testPoolCycleOperations")
+	public void testPoolCycleOperations() {
+		ReusablePool pool = ReusablePool.getInstance();
+		
+		try {
+			Reusable r1 = pool.acquireReusable();
+			Reusable r2 = pool.acquireReusable();
+			
+			assertNotNull(r1, "First reusable should not be null");
+			assertNotNull(r2, "Second reusable should not be null");
+			assertTrue(r1 != r2, "Should be different objects");
+			
+			pool.releaseReusable(r2);
+			pool.releaseReusable(r1);
+			
+			Reusable r3 = pool.acquireReusable();
+			Reusable r4 = pool.acquireReusable();
+			
+			assertSame(r1, r3, "First released object should be first acquired");
+			assertSame(r2, r4, "Second released object should be second acquired");
+			
+			pool.releaseReusable(r3);
+			pool.releaseReusable(r4);
+			
+		} catch (Exception e) {
+			fail("Unexpected exception: " + e.getMessage());
+		}
+	}
+
 	
 }
