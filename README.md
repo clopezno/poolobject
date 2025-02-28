@@ -11,3 +11,11 @@ Authors:
 
 - Carlos Lopez Nozal
 - Jesus Alonso Abad
+
+Editors:
+
+- @SofiaCalaviaGomez - Sofía Calavia
+- @Haleks5 -Alejandro García
+- @Andrespuentesg -Andrés Puentes
+- @Mariocea -Mario Cea
+
