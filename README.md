@@ -20,8 +20,7 @@ Editors:
 - @Miiaalll - Salomiia Luhova
 
 
-Información sobre el las pruebas de Coberturas:
-
+Información sobre las pruebas de cobertura:
 https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura 
 https://github.com/CesarRodrigu/poolobject/wiki/Informe-de-Actividad,-Pruebas-y-Cobertura-2
 
