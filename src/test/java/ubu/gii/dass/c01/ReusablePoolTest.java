@@ -82,7 +82,7 @@ public class ReusablePoolTest {
 			 Reusable acqReusable = pool.acquireReusable();
 			// Verifica si el objeto adquirido es el mismo que el objeto liberado
 			 assertEquals(reusable, acqReusable, "El objeto que ha sido adquirido debe ser el mismo que el liberado");
-			//Verifica que el poll tiene un objeto antes de liberarlo
+			//Verifica que el pool tiene un objeto antes de liberarlo
 			 assertNotNull(pool.acquireReusable(), "El pool debería tener al menos un objeto reusable después de liberarlo");
 		 } catch (DuplicatedInstanceException e) {
 			//Si se lanza una excepción, imprime un mensaje de error
