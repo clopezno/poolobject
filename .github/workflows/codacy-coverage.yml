@@ -1,12 +1,4 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-name: Java CI with Maven
+name: Codacy Coverage Reporter
 
 on:
   push:
@@ -21,21 +13,29 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+    # Generar el reporte de cobertura de JaCoCo
+    - name: Run tests and generate coverage report
+      run: mvn test jacoco:report  # Asegúrate de que se genere el reporte de cobertura
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
-    # Optional: Upload coverage report
-    - name: codecov
-      uses: codecov/codecov-action@v5.4.0
+
+    # Subir el reporte de cobertura a Codacy
+    - name: Run codacy-coverage-reporter
+      uses: codacy/codacy-coverage-reporter-action@v1.3.0
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        slug: Nicop17/poolobject
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: target/site/jacoco-aggregate.xml  # Ruta del reporte generado por JaCoCo
+
