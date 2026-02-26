@@ -7,7 +7,7 @@ import java.util.*;
  * @author Carlos López clopezno@ubu.es
  */
 
-public final class ReusablePool{
+public final class ReusablePool implements AutoCloseable{
 
 	private Vector<Reusable> reusables;
 	private static ReusablePool instance;
@@ -59,5 +59,11 @@ public final class ReusablePool{
 		else{
 			throw(new DuplicatedInstanceException());
 		}
+	}	
+	
+	@Override
+	public void close() {
+		instance = null;
 	}
+	
 } 
